@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏀 스윙맨 드릴</title>
+<title>🏀 유상수 농구 드릴</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -81,28 +81,38 @@ header{padding:30px 0 26px;display:flex;align-items:center;gap:18px;
 
 .drill-grid{display:flex;flex-direction:column;gap:10px;}
 .dc{background:rgba(14,26,50,.9);border:1px solid rgba(255,255,255,.08);border-radius:13px;
-  padding:16px 18px;display:grid;grid-template-columns:auto 1fr;gap:12px;transition:all .22s;
-  cursor:pointer;position:relative;overflow:hidden;}
+  transition:all .22s;position:relative;overflow:hidden;}
 .dc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--or);opacity:0;transition:opacity .22s;}
-.dc:hover{border-color:rgba(255,107,0,.3);transform:translateX(3px);}
 .dc:hover::before,.dc.done::before{opacity:1;}
 .dc.done{border-color:rgba(34,197,94,.3);background:rgba(34,197,94,.05);}
 .dc.done::before{background:var(--gn);}
+
+/* 아코디언 헤더 */
+.dc-header{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;
+  padding:14px 18px;cursor:pointer;user-select:none;}
+.dc-header:hover{background:rgba(255,255,255,.03);}
 .chk{width:22px;height:22px;border-radius:6px;flex-shrink:0;border:2px solid rgba(255,255,255,.2);
-  display:flex;align-items:center;justify-content:center;font-size:.75rem;transition:all .22s;margin-top:2px;}
+  display:flex;align-items:center;justify-content:center;font-size:.75rem;transition:all .22s;}
 .dc.done .chk{background:var(--gn);border-color:var(--gn);color:white;}
-.dhead{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:5px;}
-.dname{font-weight:700;font-size:.9rem;line-height:1.3;}
-.dbadges{display:flex;gap:5px;flex-shrink:0;flex-wrap:wrap;}
+.dc-title-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.dname{font-weight:700;font-size:.88rem;line-height:1.3;}
+.dbadges{display:flex;gap:5px;flex-wrap:wrap;}
 .badge{font-size:.62rem;font-weight:700;letter-spacing:.5px;padding:2px 7px;border-radius:4px;}
 .bt{background:rgba(255,107,0,.15);color:var(--or);}
 .be{background:rgba(34,197,94,.15);color:var(--gn);}
 .bm{background:rgba(234,179,8,.15);color:var(--yw);}
 .bh{background:rgba(239,68,68,.15);color:var(--rd);}
 .bc{background:rgba(59,130,246,.15);color:var(--bl);}
-.dpur{font-size:.75rem;color:var(--or);font-weight:600;margin-bottom:4px;}
-.ddesc{font-size:.78rem;color:rgba(240,235,224,.7);line-height:1.6;}
-.dsteps{margin-top:9px;display:flex;flex-direction:column;gap:4px;}
+.dc-chevron{font-size:.7rem;color:var(--gr);transition:transform .25s;flex-shrink:0;}
+.dc.open .dc-chevron{transform:rotate(180deg);}
+
+/* 아코디언 바디 */
+.dc-body{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+.dc.open .dc-body{max-height:400px;}
+.dc-body-inner{padding:0 18px 14px 52px;border-top:1px solid rgba(255,255,255,.06);}
+.dpur{font-size:.75rem;color:var(--or);font-weight:600;margin-bottom:4px;margin-top:10px;}
+.ddesc{font-size:.78rem;color:rgba(240,235,224,.7);line-height:1.6;margin-bottom:6px;}
+.dsteps{display:flex;flex-direction:column;gap:4px;}
 .step{display:flex;gap:7px;align-items:flex-start;font-size:.75rem;color:rgba(240,235,224,.6);line-height:1.5;}
 .sn{width:17px;height:17px;border-radius:50%;flex-shrink:0;background:rgba(255,107,0,.2);color:var(--or);
   font-size:.62rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px;}
@@ -231,7 +241,7 @@ header{padding:30px 0 26px;display:flex;align-items:center;gap:18px;
 <header>
   <div class="ball"></div>
   <div class="hi">
-    <h1>스윙맨 드릴</h1>
+    <h1>유상수 농구 드릴</h1>
   </div>
 </header>
 
@@ -1002,24 +1012,33 @@ function init(){
 // ════════════════════════════════════════
 // DRILLS
 // ════════════════════════════════════════
+function toggleAccordion(id){
+  const card=document.getElementById('dc-'+id);
+  card.classList.toggle('open');
+}
+
 function renderDrills(){
   document.getElementById('drill-grid').innerHTML=DRILLS.map(d=>{
     const done=checked.has(d.id);
     const lv=d.level==='초급'?'be':d.level==='중급'?'bm':'bh';
     return `<div class="dc${done?' done':''}" id="dc-${d.id}">
-      <div class="chk" id="chk-${d.id}" onclick="toggleDrill('${d.id}')">${done?'✓':''}</div>
-      <div>
-        <div class="dhead">
-          <div class="dname">${d.name}</div>
+      <div class="dc-header" onclick="toggleAccordion('${d.id}')">
+        <div class="chk" id="chk-${d.id}" onclick="event.stopPropagation();toggleDrill('${d.id}')">${done?'✓':''}</div>
+        <div class="dc-title-row">
+          <span class="dname">${d.name}</span>
           <div class="dbadges">
-            <span class="badge bc">${d.cat}</span>
             <span class="badge bt">⏱ ${d.time}</span>
             <span class="badge ${lv}">${d.level}</span>
           </div>
         </div>
-        <div class="dpur">📌 ${d.purpose}</div>
-        <div class="ddesc">${d.desc}</div>
-        <div class="dsteps">${d.steps.map((s,i)=>`<div class="step"><div class="sn">${i+1}</div><div>${s}</div></div>`).join('')}</div>
+        <span class="dc-chevron">▼</span>
+      </div>
+      <div class="dc-body">
+        <div class="dc-body-inner">
+          <div class="dpur">📌 ${d.purpose}</div>
+          <div class="ddesc">${d.desc}</div>
+          <div class="dsteps">${d.steps.map((s,i)=>`<div class="step"><div class="sn">${i+1}</div><div>${s}</div></div>`).join('')}</div>
+        </div>
       </div>
     </div>`;
   }).join('');
