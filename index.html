@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏀 스윙맨 드릴</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --or:#FF6B00;--or2:#FF9A3C;
+  --nv:#080F1E;--nv2:#0D1A30;--nv3:#162240;--nv4:#1E3060;
+  --wh:#F0EBE0;--gr:#7A8FA8;
+  --gn:#22C55E;--rd:#EF4444;--yw:#EAB308;--bl:#3B82F6;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--nv);color:var(--wh);min-height:100vh;}
+
+.bg-wrap{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.bg-g{position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 40% at 50% 0%,rgba(255,107,0,.18) 0%,transparent 55%),
+             radial-gradient(ellipse 50% 50% at 90% 80%,rgba(30,48,96,.5) 0%,transparent 60%),
+             linear-gradient(160deg,#080F1E 0%,#0D1A30 100%);}
+
+.wrap{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:0 20px 80px;}
+
+/* ── HEADER ── */
+header{padding:30px 0 26px;display:flex;align-items:center;gap:18px;
+  border-bottom:1px solid rgba(255,107,0,.2);margin-bottom:32px;}
+.ball{width:50px;height:50px;border-radius:50%;flex-shrink:0;
+  background:radial-gradient(circle at 33% 33%,#FF9A3C,#FF6B00,#C44B00);
+  box-shadow:0 0 28px rgba(255,107,0,.55),inset -3px -3px 10px rgba(0,0,0,.4);
+  position:relative;animation:ballpulse 3s ease-in-out infinite;}
+.ball::before,.ball::after{content:'';position:absolute;border:1.5px solid rgba(0,0,0,.3);border-radius:50%;}
+.ball::before{width:52%;height:100%;left:24%;top:0;}
+.ball::after{width:100%;height:52%;left:0;top:24%;}
+@keyframes ballpulse{0%,100%{box-shadow:0 0 28px rgba(255,107,0,.55),inset -3px -3px 10px rgba(0,0,0,.4);}
+  50%{box-shadow:0 0 50px rgba(255,107,0,.85),inset -3px -3px 10px rgba(0,0,0,.4);}}
+.hi h1{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:3px;line-height:1;
+  background:linear-gradient(90deg,#FF6B00,#FFB347,#FF6B00);background-size:200%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 5s linear infinite;}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+.hi p{color:var(--gr);font-size:.75rem;letter-spacing:1.5px;margin-top:3px;}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,rgba(255,107,0,.12),rgba(255,107,0,.04));
+  border:1px solid rgba(255,107,0,.3);border-radius:20px;padding:24px 26px;
+  margin-bottom:28px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start;}
+.ptag{display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,107,0,.15);border:1px solid rgba(255,107,0,.4);
+  border-radius:20px;padding:3px 12px;font-size:.68rem;font-weight:700;color:var(--or);letter-spacing:1px;margin-bottom:8px;}
+.hero h2{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:2px;margin-bottom:5px;}
+.hero .sub{font-size:.78rem;color:var(--gr);line-height:1.6;max-width:460px;}
+.pstats{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;}
+.sc{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:5px 10px;text-align:center;}
+.sc .n{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--or);}
+.sc .l{font-size:.6rem;color:var(--gr);letter-spacing:.5px;}
+.pos-badge{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;letter-spacing:3px;color:rgba(255,107,0,.2);line-height:1;}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:4px;margin-bottom:24px;background:rgba(255,255,255,.04);border-radius:12px;padding:4px;}
+.tab{flex:1;padding:9px 4px;text-align:center;border-radius:9px;font-size:.75rem;font-weight:500;
+  cursor:pointer;transition:all .22s;color:var(--gr);border:none;background:none;}
+.tab:hover{color:var(--wh);background:rgba(255,255,255,.06);}
+.tab.active{background:var(--or);color:white;font-weight:700;box-shadow:0 4px 18px rgba(255,107,0,.4);}
+
+.panel{display:none;animation:fin .3s ease;}
+.panel.active{display:block;}
+@keyframes fin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.stitle{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;color:var(--or);
+  margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.stitle::after{content:'';flex:1;height:1px;background:rgba(255,107,0,.2);}
+
+/* ── DRILL ── */
+.prog-wrap{margin-bottom:24px;}
+.prog-label{display:flex;justify-content:space-between;font-size:.76rem;color:var(--gr);margin-bottom:7px;}
+.prog-label span{color:var(--or);font-weight:700;}
+.prog-bar{height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--or),#FFB347);border-radius:3px;transition:width .5s ease;}
+
+.drill-grid{display:flex;flex-direction:column;gap:10px;}
+.dc{background:rgba(14,26,50,.9);border:1px solid rgba(255,255,255,.08);border-radius:13px;
+  padding:16px 18px;display:grid;grid-template-columns:auto 1fr;gap:12px;transition:all .22s;
+  cursor:pointer;position:relative;overflow:hidden;}
+.dc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--or);opacity:0;transition:opacity .22s;}
+.dc:hover{border-color:rgba(255,107,0,.3);transform:translateX(3px);}
+.dc:hover::before,.dc.done::before{opacity:1;}
+.dc.done{border-color:rgba(34,197,94,.3);background:rgba(34,197,94,.05);}
+.dc.done::before{background:var(--gn);}
+.chk{width:22px;height:22px;border-radius:6px;flex-shrink:0;border:2px solid rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;font-size:.75rem;transition:all .22s;margin-top:2px;}
+.dc.done .chk{background:var(--gn);border-color:var(--gn);color:white;}
+.dhead{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:5px;}
+.dname{font-weight:700;font-size:.9rem;line-height:1.3;}
+.dbadges{display:flex;gap:5px;flex-shrink:0;flex-wrap:wrap;}
+.badge{font-size:.62rem;font-weight:700;letter-spacing:.5px;padding:2px 7px;border-radius:4px;}
+.bt{background:rgba(255,107,0,.15);color:var(--or);}
+.be{background:rgba(34,197,94,.15);color:var(--gn);}
+.bm{background:rgba(234,179,8,.15);color:var(--yw);}
+.bh{background:rgba(239,68,68,.15);color:var(--rd);}
+.bc{background:rgba(59,130,246,.15);color:var(--bl);}
+.dpur{font-size:.75rem;color:var(--or);font-weight:600;margin-bottom:4px;}
+.ddesc{font-size:.78rem;color:rgba(240,235,224,.7);line-height:1.6;}
+.dsteps{margin-top:9px;display:flex;flex-direction:column;gap:4px;}
+.step{display:flex;gap:7px;align-items:flex-start;font-size:.75rem;color:rgba(240,235,224,.6);line-height:1.5;}
+.sn{width:17px;height:17px;border-radius:50%;flex-shrink:0;background:rgba(255,107,0,.2);color:var(--or);
+  font-size:.62rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+
+/* ── TACTIC ── */
+/* Scenario nav */
+.scene-nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;}
+.snav{padding:7px 14px;border-radius:8px;font-size:.75rem;font-weight:700;cursor:pointer;
+  transition:all .2s;border:1px solid rgba(255,255,255,.15);color:var(--gr);background:transparent;}
+.snav:hover{border-color:var(--or);color:var(--wh);}
+.snav.active{background:var(--or);border-color:var(--or);color:white;box-shadow:0 3px 14px rgba(255,107,0,.4);}
+.snav.def-btn.active{background:var(--rd);border-color:var(--rd);box-shadow:0 3px 14px rgba(239,68,68,.4);}
+
+/* Court canvas area */
+.court-section{margin-bottom:22px;}
+.court-outer{
+  width:100%;max-width:640px;margin:0 auto;
+  border-radius:16px;overflow:hidden;
+  border:2px solid rgba(255,255,255,.12);
+  box-shadow:0 16px 50px rgba(0,0,0,.55);
+  background:#3A6B24;position:relative;}
+.court-svg-wrap{width:100%;aspect-ratio:16/9;position:relative;}
+.court-svg-wrap svg{width:100%;height:100%;display:block;}
+
+/* player dot labels */
+.player-dot{transition:all .6s cubic-bezier(.4,0,.2,1);}
+.move-arrow{stroke-dasharray:8 4;animation:dashmove 1.2s linear infinite;}
+@keyframes dashmove{to{stroke-dashoffset:-24;}}
+
+/* Scene description */
+.scene-box{background:rgba(14,26,50,.9);border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;padding:20px 22px;margin-bottom:14px;}
+.scene-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:2px;
+  color:var(--or);margin-bottom:10px;}
+.scene-title.def{color:var(--rd);}
+.scene-steps{display:flex;flex-direction:column;gap:8px;}
+.sstep{display:flex;gap:10px;align-items:flex-start;}
+.sstep-num{width:24px;height:24px;border-radius:7px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.72rem;font-weight:700;margin-top:1px;}
+.atk-num{background:rgba(255,107,0,.2);color:var(--or);border:1px solid rgba(255,107,0,.3);}
+.def-num{background:rgba(239,68,68,.15);color:var(--rd);border:1px solid rgba(239,68,68,.3);}
+.sstep-text{font-size:.82rem;color:rgba(240,235,224,.82);line-height:1.65;}
+.sstep-text strong{color:var(--wh);font-weight:700;}
+
+/* Key points */
+.key-points{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.kp{background:rgba(255,107,0,.08);border:1px solid rgba(255,107,0,.2);
+  border-radius:6px;padding:4px 10px;font-size:.7rem;color:rgba(240,235,224,.7);}
+.kp.def{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.2);}
+
+/* ── TIPS ── */
+.tip-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.tip-card{background:rgba(14,26,50,.9);border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:18px;}
+.tip-icon{font-size:1.4rem;margin-bottom:8px;}
+.tip-title{font-weight:700;font-size:.85rem;color:var(--or);margin-bottom:7px;}
+.tip-body{font-size:.78rem;color:rgba(240,235,224,.72);line-height:1.7;list-style:none;}
+.tip-body li{padding-left:13px;position:relative;margin-bottom:3px;}
+.tip-body li::before{content:'▸';position:absolute;left:0;color:var(--or);font-size:.68rem;top:2px;}
+
+/* ── RECORD ── */
+.rec-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
+.rs{background:rgba(14,26,50,.9);border:1px solid rgba(255,255,255,.08);border-radius:12px;
+  padding:16px 12px;text-align:center;}
+.rn{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--or);line-height:1;}
+.rl{font-size:.63rem;color:var(--gr);margin-top:3px;letter-spacing:.5px;}
+.rec-list{display:flex;flex-direction:column;gap:7px;}
+.ri{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+  border-radius:9px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;}
+.rd{font-size:.73rem;color:var(--gr);font-family:'JetBrains Mono',monospace;}
+.rc{font-size:.75rem;color:var(--gn);font-weight:700;}
+.btn-reset{margin-top:14px;padding:9px 18px;background:rgba(239,68,68,.1);
+  border:1px solid rgba(239,68,68,.3);border-radius:8px;color:var(--rd);
+  font-size:.76rem;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-reset:hover{background:rgba(239,68,68,.2);}
+
+.empty{text-align:center;padding:46px 20px;color:var(--gr);}
+.empty-icon{font-size:2.6rem;margin-bottom:10px;}
+.empty-text{font-size:.83rem;line-height:1.6;}
+
+/* ── DEPLOY GUIDE ── */
+.deploy-section{margin-top:36px;border-top:1px solid rgba(255,255,255,.08);padding-top:28px;}
+.deploy-card{background:rgba(14,26,50,.9);border:1px solid rgba(255,107,0,.2);border-radius:14px;padding:22px 24px;}
+.deploy-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;color:var(--or);margin-bottom:14px;}
+.deploy-steps{display:flex;flex-direction:column;gap:10px;}
+.ds{display:flex;gap:12px;align-items:flex-start;}
+.ds-num{width:26px;height:26px;border-radius:8px;flex-shrink:0;background:rgba(255,107,0,.2);
+  color:var(--or);font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.ds-text{font-size:.82rem;color:rgba(240,235,224,.8);line-height:1.65;}
+.ds-text a{color:var(--or);text-decoration:none;font-weight:700;}
+.ds-text a:hover{text-decoration:underline;}
+.ds-text code{background:rgba(255,255,255,.08);border-radius:4px;padding:1px 6px;
+  font-family:'JetBrains Mono',monospace;font-size:.78rem;color:#FFB347;}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(14px);
+  background:var(--nv3);border:1px solid var(--or);color:var(--wh);
+  padding:9px 20px;border-radius:22px;font-size:.8rem;font-weight:500;
+  pointer-events:none;opacity:0;transition:all .3s;z-index:999;white-space:nowrap;}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+@media(max-width:600px){
+  .tip-grid{grid-template-columns:1fr;}
+  .hero{grid-template-columns:1fr;}
+  .pos-badge{display:none;}
+  .hi h1{font-size:1.7rem;}
+  .scene-nav{gap:4px;}
+  .snav{padding:6px 10px;font-size:.7rem;}
+}
+</style>
+</head>
+<body>
+<div class="bg-wrap"><div class="bg-g"></div></div>
+
+<div class="wrap">
+<header>
+  <div class="ball"></div>
+  <div class="hi">
+    <h1>스윙맨 드릴</h1>
+    <p>스윙맨 트레이닝 가이드 · SG / SF 포지션</p>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="ptag">🏀 스윙맨 포지션</div>
+    <h2>스윙맨 드릴</h2>
+    <p class="sub">스윙맨 SG/SF | 롤모델 기반 훈련 가이드<br>
+      3점슛 성공률 48%+ · 캐치앤샷 · 오프더볼 · 미드레인지 · 드라이브
+    </p>
+    <div class="pstats">
+      <div class="sc"><div class="n">17.2</div><div class="l">평균 득점</div></div>
+      <div class="sc"><div class="n">48%</div><div class="l">3점 성공률</div></div>
+      <div class="sc"><div class="n">3.4</div><div class="l">3점슛/경기</div></div>
+      <div class="sc"><div class="n">6.1</div><div class="l">리바운드</div></div>
+      <div class="sc"><div class="n">2.7</div><div class="l">어시스트</div></div>
+    </div>
+  </div>
+  <div class="pos-badge">SG<br>SF</div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('drill',this)">💪 드릴 훈련</button>
+  <button class="tab" onclick="switchTab('tactic',this)">🎯 5대5 전술</button>
+  <button class="tab" onclick="switchTab('tips',this)">💡 스킬 팁</button>
+  <button class="tab" onclick="switchTab('record',this)">📊 기록</button>
+</div>
+
+<!-- ══ DRILL ══ -->
+<div id="panel-drill" class="panel active">
+  <div class="prog-wrap">
+    <div class="prog-label">오늘 훈련 진도 <span id="prog-text">0 / 8 완료</span></div>
+    <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+  </div>
+  <div class="stitle">기본 드리블 훈련</div>
+  <div class="drill-grid" id="drill-grid"></div>
+</div>
+
+<!-- ══ TACTIC ══ -->
+<div id="panel-tactic" class="panel">
+  <div class="stitle">스윙맨 5대5 움직임 시나리오</div>
+
+  <!-- Scenario buttons -->
+  <div class="scene-nav" id="scene-nav"></div>
+
+  <!-- Court -->
+  <div class="court-section">
+    <div class="court-outer">
+      <div class="court-svg-wrap">
+        <svg id="court-svg" viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg">
+          <!-- Floor -->
+          <rect width="640" height="360" fill="#4A7828"/>
+          <!-- Lines -->
+          <g fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2">
+            <rect x="12" y="12" width="616" height="336" rx="3"/>
+            <line x1="320" y1="12" x2="320" y2="348"/>
+            <circle cx="320" cy="180" r="48"/>
+            <circle cx="320" cy="180" r="6" fill="rgba(255,255,255,.55)" stroke="none"/>
+            <!-- Left key -->
+            <rect x="12" y="96" width="148" height="168"/>
+            <path d="M160,96 A72,72 0 0,1 160,264" stroke-dasharray="8,4"/>
+            <!-- Right key -->
+            <rect x="480" y="96" width="148" height="168"/>
+            <path d="M480,96 A72,72 0 0,0 480,264" stroke-dasharray="8,4"/>
+            <!-- 3pt Left -->
+            <path d="M12,68 L100,68 A168,168 0 0,1 100,292 L12,292"/>
+            <!-- 3pt Right -->
+            <path d="M628,68 L540,68 A168,168 0 0,0 540,292 L628,292"/>
+          </g>
+          <!-- Left basket -->
+          <circle cx="64" cy="180" r="12" fill="none" stroke="rgba(255,165,0,.9)" stroke-width="2.5"/>
+          <rect x="12" y="173" width="52" height="14" fill="rgba(255,165,0,.2)" stroke="rgba(255,165,0,.8)" stroke-width="1.5"/>
+          <!-- Right basket (attack) -->
+          <circle cx="576" cy="180" r="12" fill="none" stroke="rgba(255,165,0,.9)" stroke-width="2.5"/>
+          <rect x="576" y="173" width="52" height="14" fill="rgba(255,165,0,.2)" stroke="rgba(255,165,0,.8)" stroke-width="1.5"/>
+
+          <!-- ARROW DEFS -->
+          <defs>
+            <marker id="arr-or" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto">
+              <polygon points="0,0 7,3.5 0,7" fill="#FF6B00"/>
+            </marker>
+            <marker id="arr-wh" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto">
+              <polygon points="0,0 7,3.5 0,7" fill="rgba(255,255,255,.7)"/>
+            </marker>
+            <marker id="arr-rd" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto">
+              <polygon points="0,0 7,3.5 0,7" fill="#EF4444"/>
+            </marker>
+            <marker id="arr-gn" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto">
+              <polygon points="0,0 7,3.5 0,7" fill="#22C55E"/>
+            </marker>
+          </defs>
+
+          <!-- DYNAMIC LAYER -->
+          <g id="dynamic-layer"></g>
+
+          <!-- Legend -->
+          <rect x="12" y="338" width="616" height="22" fill="rgba(0,0,0,.25)" rx="2"/>
+          <circle cx="26" cy="349" r="5" fill="#FF6B00"/>
+          <text x="35" y="353" fill="rgba(255,255,255,.8)" font-size="9" font-family="sans-serif">SG 포지션</text>
+          <circle cx="110" cy="349" r="5" fill="#3B82F6"/>
+          <text x="119" y="353" fill="rgba(255,255,255,.8)" font-size="9" font-family="sans-serif">팀메이트</text>
+          <circle cx="190" cy="349" r="5" fill="rgba(239,68,68,.9)"/>
+          <text x="199" y="353" fill="rgba(255,255,255,.8)" font-size="9" font-family="sans-serif">수비</text>
+          <line x1="268" y1="349" x2="290" y2="349" stroke="#FF6B00" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-or)"/>
+          <text x="297" y="353" fill="rgba(255,255,255,.8)" font-size="9" font-family="sans-serif">내 이동</text>
+          <line x1="380" y1="349" x2="402" y2="349" stroke="rgba(255,255,255,.6)" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-wh)"/>
+          <text x="409" y="353" fill="rgba(255,255,255,.8)" font-size="9" font-family="sans-serif">팀원 이동</text>
+          <line x1="476" y1="349" x2="498" y2="349" stroke="#22C55E" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-gn)"/>
+          <text x="505" y="353" fill="rgba(255,255,255,.8)" font-size="9" font-family="sans-serif">패스</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scene description -->
+  <div id="scene-box"></div>
+</div>
+
+<!-- ══ TIPS ══ -->
+<div id="panel-tips" class="panel">
+  <div class="stitle">스윙맨 핵심 스킬</div>
+  <div class="tip-grid" id="tip-grid"></div>
+</div>
+
+<!-- ══ RECORD ══ -->
+<div id="panel-record" class="panel">
+  <div class="stitle">나의 훈련 기록</div>
+  <div class="rec-stats">
+    <div class="rs"><div class="rn" id="r-total">0</div><div class="rl">총 완료 드릴</div></div>
+    <div class="rs"><div class="rn" id="r-days">0</div><div class="rl">훈련일수</div></div>
+    <div class="rs"><div class="rn" id="r-streak">0</div><div class="rl">연속 출석</div></div>
+  </div>
+  <div id="rec-list"></div>
+  <button class="btn-reset" onclick="resetRecord()">기록 초기화</button>
+
+  <!-- Deploy Guide -->
+  <div class="deploy-section">
+    <div class="deploy-card">
+      <div class="deploy-title">🚀 다른 사람과 공유하기 (무료 배포)</div>
+      <div class="deploy-steps">
+        <div class="ds">
+          <div class="ds-num">1</div>
+          <div class="ds-text">이 HTML 파일을 폴더에 저장합니다. 파일명: <code>index.html</code></div>
+        </div>
+        <div class="ds">
+          <div class="ds-num">2</div>
+          <div class="ds-text"><a href="https://app.netlify.com/drop" target="_blank">app.netlify.com/drop</a> 접속 (회원가입 불필요)</div>
+        </div>
+        <div class="ds">
+          <div class="ds-num">3</div>
+          <div class="ds-text">폴더를 Netlify Drop 영역에 <strong>드래그 앤 드롭</strong>하면 즉시 배포 완료</div>
+        </div>
+        <div class="ds">
+          <div class="ds-num">4</div>
+          <div class="ds-text"><code>https://랜덤이름.netlify.app</code> 링크가 생성됨 — 누구나 접속 가능!</div>
+        </div>
+        <div class="ds">
+          <div class="ds-num">💡</div>
+          <div class="ds-text">회원가입 시 링크 이름 변경 가능 (예: <code>hyunjung-drill.netlify.app</code>). 무료 SSL 자동 적용.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div><!-- /wrap -->
+
+<div id="toast"></div>
+
+<script>
+// ════════════════════════════════════════
+// DRILL DATA
+// ════════════════════════════════════════
+const DRILLS=[
+  {id:'stat',cat:'기본',name:'제자리 드리블',purpose:'볼 감각 기본기 — 손가락 끝 컨트롤',desc:'눈은 전방 고정, 볼을 보지 않고 양손 교대 드리블.',steps:['오른손 15초 → 왼손 15초 → 3세트','속도를 점진적으로 올리며 손가락 끝으로 컨트롤','마지막 세트는 최대 속도로 1분 연속'],time:'10분',level:'초급'},
+  {id:'low',cat:'기본',name:'로우 드리블',purpose:'수비 압박 상황 볼 보호 — 낮은 자세 유지',desc:'무릎 아래 높이로 최대한 낮게. 드라이브 전 준비 자세.',steps:['스탠스 넓게, 허리 낮추기','무릎 아래 15cm 목표로 짧게 드리블','양손 30초씩 → 교대 1분'],time:'8분',level:'초급'},
+  {id:'cross',cat:'기본',name:'크로스오버',purpose:'방향 전환 & 수비 제치기 — 드라이브 핵심',desc:'볼을 몸 앞에서 L↔R 교차. 무게중심 이동으로 수비 반응 유도.',steps:['제자리 리듬 크로스오버','이동하며 크로스오버','크로스오버 → 즉시 드라이브 마무리'],time:'12분',level:'초급'},
+  {id:'between',cat:'기본',name:'비트윈 더 레그',purpose:'빠른 핸드 체인지 — 크로스오버보다 짧은 이동',desc:'다리 사이로 볼을 통과시켜 손 바꾸기. 더 빠른 전환 가능.',steps:['한 발 내딛고 앞발 사이로 볼 통과','리듬: R드리블 → 왼발 내딛 → 비트윈 → L','이동하며 연속 L-R-L-R 10회 왕복'],time:'12분',level:'중급'},
+  {id:'behind',cat:'기본',name:'비하인드 더 백',purpose:'급격한 방향 변환 — 수비 따돌리기',desc:'등 뒤로 볼을 돌려 반대 손 캐치. 손목 스냅으로 처리.',steps:['정지: R→등뒤→L 반복 캐치','걸으며: 한 걸음마다 비하인드 교체','달리며: 드리블 주행 중 적용'],time:'10분',level:'중급'},
+  {id:'pocket',cat:'기본',name:'포켓 드리블',purpose:'밀착 수비 시 볼 보호 — 슛/패스 전 자세',desc:'허리 옆 "포켓" 위치에서 짧고 빠른 드리블.',steps:['오른 포켓 15초 → 왼 포켓 15초','포켓 드리블 → 헤드페이크 → 드라이브','포켓 드리블 → 스텝백 점퍼 연결'],time:'10분',level:'중급'},
+  {id:'hesi',cat:'응용',name:'헤지테이션',purpose:'수비 타이밍 무너뜨리기 — 수비 타이밍 무너뜨리기',desc:'드리블 중 잠깐 멈추는 척 → 수비 반응 유도 → 폭발 전진.',steps:['전진 드리블 → 0.3초 멈춤','수비 반응 순간 반대 방향 드라이브','또는 멈춤 후 즉시 점프슛 연결'],time:'15분',level:'중급'},
+  {id:'combo',cat:'응용',name:'콤보 드릴',purpose:'실전 종합 — 아이솔레이션 패턴 완성',desc:'크로스오버+비트윈+비하인드+헤지테이션 연속 연결.',steps:['크로스 2회→비트윈 1회→비하인드 1회 (1세트)','5세트 연속, 마지막은 드라이브/점퍼 마무리','30초 1세트, 쉬지 않고 유지가 핵심'],time:'15분',level:'고급'},
+];
+
+// ════════════════════════════════════════
+// SCENE DATA — 스윙맨 5대5 시나리오
+// ════════════════════════════════════════
+/*
+ 코트 좌표 (viewBox 640×360, 공격 방향 = 오른쪽 골대)
+ SG 포지션 = orange, 팀메이트 = blue, 수비 = red
+ 화살표: 내 이동=orange, 팀원이동=white, 패스=green
+*/
+const SCENES=[
+{
+  id:'s1', label:'① 코너 3점', type:'atk',
+  title:'코너 3점 포지셔닝 (SG 핵심 루트)',
+  players:[
+    {id:'pg',x:220,y:180,fill:'#3B82F6',label:'PG',r:13},
+    {id:'sg',x:340,y:80, fill:'#FF6B00',label:'SG★',r:15},   // SG
+    {id:'sf',x:340,y:280,fill:'#3B82F6',label:'SF',r:13},
+    {id:'pf',x:440,y:120,fill:'#3B82F6',label:'PF',r:13},
+    {id:'c', x:490,y:180,fill:'#3B82F6',label:'C',r:13},
+    {id:'d1',x:380,y:90, fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d2',x:380,y:270,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d3',x:280,y:180,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d4',x:460,y:130,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d5',x:510,y:190,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+  ],
+  arrows:[
+    // SG: 윙→코너 이동
+    {x1:340,y1:80, x2:520,y2:55, color:'#FF6B00',dash:true,marker:'arr-or'},
+    // PG→SG 패스 (after move)
+    {x1:220,y1:180,x2:516,y2:62,color:'#22C55E',dash:true,marker:'arr-gn'},
+    // PF 스크린
+    {x1:440,y1:120,x2:390,y2:95,color:'rgba(255,255,255,.5)',dash:false,marker:'arr-wh'},
+  ],
+  steps:[
+    {n:'①',t:'<strong>PG가 탑(top of key) 볼 소유</strong> — SG는 윙(45도) 위치에서 대기'},
+    {n:'②',t:'<strong>PF가 수비(D1)에게 스크린</strong>을 세워줌'},
+    {n:'③',t:'스크린 순간 <strong>SG가 코너로 빠르게 이동</strong> — feet set 준비'},
+    {n:'④',t:'<strong>PG가 코너로 패스</strong> → 이미 자세를 잡고 있어 0.5초 이내 캐치앤샷'},
+    {n:'⑤',t:'슛이 막히면 <strong>드라이브 또는 킥아웃 패스</strong>로 옵션 전환'},
+  ],
+  points:['Feet set 선행','스크린 타이밍','릴리즈 빠르게'],
+},
+{
+  id:'s2', label:'② 백도어 컷', type:'atk',
+  title:'백도어 컷 (Backdoor Cut)',
+  players:[
+    {id:'pg',x:220,y:180,fill:'#3B82F6',label:'PG',r:13},
+    {id:'sg',x:380,y:80, fill:'#FF6B00',label:'SG★',r:15},
+    {id:'sf',x:380,y:280,fill:'#3B82F6',label:'SF',r:13},
+    {id:'pf',x:460,y:130,fill:'#3B82F6',label:'PF',r:13},
+    {id:'c', x:500,y:180,fill:'#3B82F6',label:'C',r:13},
+    {id:'d1',x:390,y:90, fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d2',x:390,y:270,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d3',x:280,y:180,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d4',x:470,y:140,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d5',x:510,y:190,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+  ],
+  arrows:[
+    // D1이 SG을 오버플레이 (패스길 막음)
+    {x1:390,y1:90,x2:360,y2:82,color:'rgba(239,68,68,.6)',dash:false,marker:'arr-rd'},
+    // SG 백도어 컷
+    {x1:380,y1:80,x2:560,y2:170,color:'#FF6B00',dash:true,marker:'arr-or'},
+    // PG 롭 패스
+    {x1:220,y1:180,x2:554,y2:166,color:'#22C55E',dash:true,marker:'arr-gn'},
+  ],
+  steps:[
+    {n:'①',t:'SG가 윙에 서 있으면 <strong>수비가 패스 차단을 위해 오버플레이</strong>'},
+    {n:'②',t:'수비 등 뒤가 열리는 순간 <strong>폭발적으로 골밑으로 파고들기</strong> (2~3보 전력 질주)'},
+    {n:'③',t:'<strong>PG가 골밑으로 로브 패스</strong> — 달리며 캐치'},
+    {n:'④',t:'레이업 또는 <strong>한 손 핑거롤</strong>로 마무리 '},
+    {n:'⑤',t:'수비가 백도어를 막으면 → 원위치 복귀 → 코너 3점 루트로 전환'},
+  ],
+  points:['수비 등 뒤 확인','2~3보 전력질주','레이업 준비'],
+},
+{
+  id:'s3', label:'③ 오프스크린', type:'atk',
+  title:'오프-볼 스크린 활용 (Off-Ball Screen)',
+  players:[
+    {id:'pg',x:220,y:180,fill:'#3B82F6',label:'PG',r:13},
+    {id:'sg',x:440,y:260,fill:'#FF6B00',label:'SG★',r:15},
+    {id:'sf',x:380,y:80, fill:'#3B82F6',label:'SF',r:13},
+    {id:'pf',x:390,y:200,fill:'#3B82F6',label:'PF',r:13},  // 스크리너
+    {id:'c', x:500,y:180,fill:'#3B82F6',label:'C',r:13},
+    {id:'d1',x:450,y:270,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d2',x:385,y:90, fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d3',x:280,y:180,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d4',x:510,y:190,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d5',x:395,y:205,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+  ],
+  arrows:[
+    // PF 스크린 세팅 이동
+    {x1:390,y1:200,x2:410,y2:240,color:'rgba(255,255,255,.5)',dash:false,marker:'arr-wh'},
+    // SG 스크린 이용해 45도 윙으로
+    {x1:440,y1:260,x2:360,y2:100,color:'#FF6B00',dash:true,marker:'arr-or'},
+    // PG 패스
+    {x1:220,y1:180,x2:356,y2:104,color:'#22C55E',dash:true,marker:'arr-gn'},
+  ],
+  steps:[
+    {n:'①',t:'SG가 코너에서 <strong>PF가 스크린 위치로 오기를 기다림</strong>'},
+    {n:'②',t:'PF가 수비(D1) 앞에 스크린을 세우는 순간 <strong>빠르게 방향 전환</strong>'},
+    {n:'③',t:'스크린을 스쳐 지나며 <strong>45도 윙 또는 엘보우로 이동</strong>'},
+    {n:'④',t:'<strong>PG가 즉시 패스</strong> — 수비가 스크린에 걸려 있는 타이밍'},
+    {n:'⑤',t:'캐치 후 <strong>3점슛 / 미드레인지 / 드라이브</strong> 3가지 옵션 중 선택'},
+  ],
+  points:['스크린 타이밍','컬 vs 플레어','3옵션 준비'],
+},
+{
+  id:'s4', label:'④ 아이솔레이션', type:'atk',
+  title:'아이솔레이션 1대1 (Isolation)',
+  players:[
+    {id:'pg',x:200,y:180,fill:'#3B82F6',label:'PG',r:13},
+    {id:'sg',x:380,y:180,fill:'#FF6B00',label:'SG★',r:15},
+    {id:'sf',x:340,y:80, fill:'#3B82F6',label:'SF',r:13},
+    {id:'pf',x:340,y:280,fill:'#3B82F6',label:'PF',r:13},
+    {id:'c', x:490,y:180,fill:'#3B82F6',label:'C',r:13},
+    {id:'d1',x:410,y:180,fill:'rgba(239,68,68,.9)',label:'D',r:11},  // SG 마크
+    {id:'d2',x:340,y:90, fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d3',x:340,y:270,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d4',x:500,y:190,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d5',x:230,y:180,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+  ],
+  arrows:[
+    // 팀원들 공간 만들기
+    {x1:340,y1:80,x2:160,y2:80,color:'rgba(255,255,255,.4)',dash:true,marker:'arr-wh'},
+    {x1:340,y1:280,x2:160,y2:280,color:'rgba(255,255,255,.4)',dash:true,marker:'arr-wh'},
+    // SG 헤지테이션→드라이브
+    {x1:380,y1:180,x2:560,y2:180,color:'#FF6B00',dash:true,marker:'arr-or'},
+  ],
+  steps:[
+    {n:'①',t:'<strong>팀원 4명이 반대쪽으로 이동</strong>해 SG 공간 확보 (스페이싱)'},
+    {n:'②',t:'<strong>포켓 드리블</strong>로 수비 반응 체크'},
+    {n:'③',t:'<strong>헤지테이션(0.3초 멈춤)</strong>으로 수비 무게중심 이동 유도'},
+    {n:'④',t:'수비 무게중심이 뒤로 빠지면 → <strong>크로스오버 드라이브</strong> 골밑 돌파'},
+    {n:'⑤',t:'수비가 버티면 → <strong>스텝백 미드레인지 점퍼</strong> '},
+  ],
+  points:['스페이싱 확인','헤지 타이밍','2옵션 결정'],
+},
+{
+  id:'s5', label:'⑤ 픽앤롤 연계', type:'atk',
+  title:'픽앤롤 볼핸들러 / 스팟업 연계',
+  players:[
+    {id:'pg',x:280,y:180,fill:'#3B82F6',label:'PG',r:13},
+    {id:'sg',x:460,y:80, fill:'#FF6B00',label:'SG★',r:15},
+    {id:'sf',x:460,y:280,fill:'#3B82F6',label:'SF',r:13},
+    {id:'pf',x:350,y:180,fill:'#3B82F6',label:'PF',r:13},  // 스크리너
+    {id:'c', x:500,y:180,fill:'#3B82F6',label:'C',r:13},
+    {id:'d1',x:470,y:90, fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d2',x:470,y:270,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d3',x:300,y:180,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d4',x:360,y:190,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d5',x:510,y:190,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+  ],
+  arrows:[
+    // PF→PG 스크린
+    {x1:350,y1:180,x2:290,y2:175,color:'rgba(255,255,255,.5)',dash:false,marker:'arr-wh'},
+    // PG 드라이브
+    {x1:280,y1:180,x2:430,y2:180,color:'rgba(255,255,255,.5)',dash:true,marker:'arr-wh'},
+    // 수비 헬프 이동
+    {x1:470,y1:90,x2:400,y2:150,color:'rgba(239,68,68,.5)',dash:true,marker:'arr-rd'},
+    // SG 오픈 → PG 킥아웃 패스
+    {x1:430,y1:180,x2:456,y2:86,color:'#22C55E',dash:true,marker:'arr-gn'},
+  ],
+  steps:[
+    {n:'①',t:'SG는 <strong>코너 or 윙에서 스팟업 대기</strong> (볼 없이 오픈 위치 유지)'},
+    {n:'②',t:'PG+PF 픽앤롤이 시작되면 <strong>수비가 헬프로 이동</strong>'},
+    {n:'③',t:'PG가 드라이브 돌파 → SG 마크맨 헬프 이동 → <strong>SG 오픈!</strong>'},
+    {n:'④',t:'<strong>PG가 킥아웃 패스</strong> → 캐치앤샷 (3점 or 미드레인지)'},
+    {n:'⑤',t:'항상 <strong>발 준비(feet set)</strong>하고 대기 — 패스 오는 방향 눈으로 추적'},
+  ],
+  points:['오픈 위치 유지','눈으로 볼 추적','feet set 대기'],
+},
+{
+  id:'s6', label:'⑥ 온볼 수비', type:'def',
+  title:'온볼 수비 (On-Ball Defense)',
+  players:[
+    {id:'pg',x:280,y:180,fill:'rgba(100,160,240,.9)',label:'공격',r:13},
+    {id:'sg',x:250,y:180,fill:'#FF6B00',label:'SG★',r:15},  // SG 수비
+    {id:'sf',x:440,y:80, fill:'rgba(100,160,240,.8)',label:'OF',r:12},
+    {id:'pf',x:440,y:280,fill:'rgba(100,160,240,.8)',label:'OF',r:12},
+    {id:'c', x:500,y:180,fill:'rgba(100,160,240,.8)',label:'OF',r:12},
+    {id:'d2',x:440,y:90, fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d3',x:440,y:270,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d4',x:200,y:180,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d5',x:510,y:190,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+  ],
+  arrows:[
+    // 상대 드라이브 시도
+    {x1:280,y1:180,x2:400,y2:180,color:'rgba(100,160,240,.5)',dash:true,marker:'arr-wh'},
+    // SG 사이드스텝 추격
+    {x1:250,y1:180,x2:370,y2:180,color:'#FF6B00',dash:true,marker:'arr-or'},
+  ],
+  steps:[
+    {n:'①',t:'<strong>양발 어깨너비</strong>, 무릎 굽힘 — 낮은 방어 자세 유지'},
+    {n:'②',t:'상대 허리(벨트) 주시 — 어깨나 볼에 시선 집중 금지 (페이크 당함)'},
+    {n:'③',t:'<strong>드라이브 방향 예측</strong> — 201cm 날개 길이로 패스 레인 차단'},
+    {n:'④',t:'코너 쪽으로 <strong>몰기</strong> — 사이드라인을 수비 파트너로 활용'},
+    {n:'⑤',t:'파울 위기 시 <strong>손을 위로</strong> (절대 아래로 뻗지 않기) — 블락 찬스 대기'},
+  ],
+  points:['허리 주시','날개 활용','코너 몰기'],
+},
+{
+  id:'s7', label:'⑦ 헬프 수비', type:'def',
+  title:'헬프 수비 & 박스아웃',
+  players:[
+    {id:'ball',x:340,y:180,fill:'rgba(100,160,240,.9)',label:'볼',r:13},
+    {id:'sg',x:440,y:100, fill:'#FF6B00',label:'SG★',r:15},
+    {id:'sf',x:440,y:260,fill:'rgba(239,68,68,.9)',label:'D',r:13},
+    {id:'pf',x:150,y:180,fill:'rgba(100,160,240,.8)',label:'OF',r:12},
+    {id:'pg',x:260,y:130,fill:'rgba(100,160,240,.8)',label:'OF',r:12},
+    {id:'c', x:490,y:180,fill:'rgba(239,68,68,.9)',label:'D',r:13},
+    {id:'d3',x:200,y:190,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+    {id:'d4',x:260,y:240,fill:'rgba(100,160,240,.8)',label:'OF',r:12},
+    {id:'d5',x:200,y:130,fill:'rgba(239,68,68,.9)',label:'D',r:11},
+  ],
+  arrows:[
+    // 볼이 왼쪽에 있을 때 SG 헬프 포지션 이동
+    {x1:440,y1:100,x2:390,y2:145,color:'#FF6B00',dash:true,marker:'arr-or'},
+    // 슛 후 SG 박스아웃
+    {x1:390,y1:145,x2:430,y2:100,color:'#FF6B00',dash:true,marker:'arr-or'},
+  ],
+  steps:[
+    {n:'①',t:'볼이 반대쪽으로 이동하면 <strong>"I" 포지션</strong> (자신의 마크맨과 볼 사이 중간)으로 이동'},
+    {n:'②',t:'슛 시도 순간 즉시 <strong>박스아웃 포지션</strong> — 마크맨을 등으로 밀어냄'},
+    {n:'③',t:'<strong>아웃사이드 리바운드</strong> 확보 — 스윙맨의 핵심 역할'},
+    {n:'④',t:'리바운드 확보 후 <strong>즉시 전환 공격</strong> — 빠른 아웃렛 패스 또는 드리블 돌파'},
+    {n:'⑤',t:'항상 <strong>두 손으로 볼 확보</strong> — 볼 뺏기면 즉시 파울 선택'},
+  ],
+  points:['I포지션','박스아웃 먼저','아웃렛 빠르게'],
+},
+];
+
+// ════════════════════════════════════════
+// TIPS DATA
+// ════════════════════════════════════════
+const TIPS=[
+  {icon:'🎯',title:'캐치앤샷 포인트',body:['볼 받기 전에 이미 슈팅 자세 준비 (feet set)','패스 받는 순간 허리 낮추고 즉시 점프 시작','릴리즈를 최대한 빠르게 — 스윙맨의 핵심 강점']},
+  {icon:'👀',title:'오프더볼 무브',body:['항상 수비 위치를 확인하며 이동','V컷 또는 L컷으로 수비 흔들기','스크린 받을 때 타이밍이 생명']},
+  {icon:'⚡',title:'드라이브 타이밍',body:['수비 무게중심이 뒤로 빠질 때 드라이브','헤지테이션 → 폭발적 첫 발이 핵심','드라이브 후 킥아웃 패스도 항상 옵션']},
+  {icon:'🏋️',title:'훈련 루틴 팁',body:['각 드릴 전 5분 손가락·손목 워밍업','비주력 손(왼손)을 주력 손보다 1.5배 더 연습','스피드보다 정확도 우선']},
+  {icon:'📐',title:'슛 폼 기초',body:['BEEF: Balance→Eyes→Elbow→Follow-through','릴리즈 포인트는 이마 위 약 20cm','팔로스루: "쿠키 항아리에 손 넣기" 이미지']},
+  {icon:'🔄',title:'약손 보강',body:['매일 왼손 드리블 5분 추가','왼손 레이업 10개 필수','비트윈 드릴을 왼손 시작으로']},
+];
+
+// ════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════
+let checked=new Set(JSON.parse(localStorage.getItem('hj_checked')||'[]'));
+let records=JSON.parse(localStorage.getItem('hj_records')||'[]');
+let currentScene=0;
+
+// ════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════
+function init(){
+  renderDrills();
+  renderSceneNav();
+  renderScene(0);
+  renderTips();
+  updateProgress();
+  renderRecord();
+}
+
+// ════════════════════════════════════════
+// DRILLS
+// ════════════════════════════════════════
+function renderDrills(){
+  document.getElementById('drill-grid').innerHTML=DRILLS.map(d=>{
+    const done=checked.has(d.id);
+    const lv=d.level==='초급'?'be':d.level==='중급'?'bm':'bh';
+    return `<div class="dc${done?' done':''}" id="dc-${d.id}">
+      <div class="chk" id="chk-${d.id}" onclick="toggleDrill('${d.id}')">${done?'✓':''}</div>
+      <div>
+        <div class="dhead">
+          <div class="dname">${d.name}</div>
+          <div class="dbadges">
+            <span class="badge bc">${d.cat}</span>
+            <span class="badge bt">⏱ ${d.time}</span>
+            <span class="badge ${lv}">${d.level}</span>
+          </div>
+        </div>
+        <div class="dpur">📌 ${d.purpose}</div>
+        <div class="ddesc">${d.desc}</div>
+        <div class="dsteps">${d.steps.map((s,i)=>`<div class="step"><div class="sn">${i+1}</div><div>${s}</div></div>`).join('')}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleDrill(id){
+  const was=checked.has(id);
+  was?checked.delete(id):checked.add(id);
+  localStorage.setItem('hj_checked',JSON.stringify([...checked]));
+  const card=document.getElementById('dc-'+id);
+  const chk=document.getElementById('chk-'+id);
+  if(!was){card.classList.add('done');chk.textContent='✓';showToast('✅ 드릴 완료!');saveRecord(id);}
+  else{card.classList.remove('done');chk.textContent='';}
+  updateProgress();renderRecord();
+}
+
+function updateProgress(){
+  const done=DRILLS.filter(d=>checked.has(d.id)).length;
+  const pct=Math.round(done/DRILLS.length*100);
+  document.getElementById('prog-text').textContent=`${done} / ${DRILLS.length} 완료`;
+  document.getElementById('prog-fill').style.width=pct+'%';
+  if(done===DRILLS.length&&done>0)showToast('🎉 오늘 훈련 전부 완료!');
+}
+
+// ════════════════════════════════════════
+// SCENE
+// ════════════════════════════════════════
+function renderSceneNav(){
+  document.getElementById('scene-nav').innerHTML=SCENES.map((s,i)=>`
+    <button class="snav${s.type==='def'?' def-btn':''}" onclick="renderScene(${i})" id="snav-${i}">${s.label}</button>
+  `).join('');
+  document.getElementById('snav-0').classList.add('active');
+}
+
+function renderScene(idx){
+  currentScene=idx;
+  // update nav
+  document.querySelectorAll('.snav').forEach((b,i)=>{
+    b.classList.remove('active');
+    if(i===idx)b.classList.add('active');
+  });
+  const s=SCENES[idx];
+  drawCourt(s);
+  drawSceneBox(s);
+}
+
+function drawCourt(s){
+  const layer=document.getElementById('dynamic-layer');
+  let html='';
+
+  // arrows
+  s.arrows.forEach(a=>{
+    const dash=a.dash?'stroke-dasharray="8 4" class="move-arrow"':'';
+    html+=`<line x1="${a.x1}" y1="${a.y1}" x2="${a.x2}" y2="${a.y2}"
+      stroke="${a.color}" stroke-width="2.5" ${dash} marker-end="url(#${a.marker})"/>`;
+  });
+
+  // players
+  s.players.forEach(p=>{
+    const isSG=p.id==='sg';
+    const strokeW=isSG?2.5:1.8;
+    html+=`<circle cx="${p.x}" cy="${p.y}" r="${p.r}" fill="${p.fill}" stroke="white" stroke-width="${strokeW}"/>`;
+    html+=`<text x="${p.x}" y="${p.y+4}" text-anchor="middle" fill="white" font-size="${isSG?8.5:8}" font-weight="bold" font-family="sans-serif">${p.label}</text>`;
+    if(isSG){
+      // glow ring
+      html+=`<circle cx="${p.x}" cy="${p.y}" r="${p.r+5}" fill="none" stroke="rgba(255,107,0,.4)" stroke-width="1.5"/>`;
+    }
+  });
+
+  layer.innerHTML=html;
+}
+
+function drawSceneBox(s){
+  const isDef=s.type==='def';
+  document.getElementById('scene-box').innerHTML=`
+    <div class="scene-box">
+      <div class="scene-title${isDef?' def':''}">${isDef?'🛡':'⚡'} ${s.title}</div>
+      <div class="scene-steps">
+        ${s.steps.map(st=>`
+          <div class="sstep">
+            <div class="sstep-num ${isDef?'def-num':'atk-num'}">${st.n}</div>
+            <div class="sstep-text">${st.t}</div>
+          </div>`).join('')}
+      </div>
+      <div class="key-points">
+        ${s.points.map(p=>`<div class="kp${isDef?' def':''}">${p}</div>`).join('')}
+      </div>
+    </div>`;
+}
+
+// ════════════════════════════════════════
+// TIPS
+// ════════════════════════════════════════
+function renderTips(){
+  document.getElementById('tip-grid').innerHTML=TIPS.map(t=>`
+    <div class="tip-card">
+      <div class="tip-icon">${t.icon}</div>
+      <div class="tip-title">${t.title}</div>
+      <ul class="tip-body">${t.body.map(b=>`<li>${b}</li>`).join('')}</ul>
+    </div>`).join('');
+}
+
+// ════════════════════════════════════════
+// RECORD
+// ════════════════════════════════════════
+function saveRecord(drillId){
+  const today=new Date().toLocaleDateString('ko-KR');
+  const drill=DRILLS.find(d=>d.id===drillId);
+  records.unshift({date:today,drill:drill.name,ts:Date.now()});
+  if(records.length>100)records.pop();
+  localStorage.setItem('hj_records',JSON.stringify(records));
+}
+
+function renderRecord(){
+  const total=records.length;
+  const days=new Set(records.map(r=>r.date)).size;
+  const uniq=[...new Set(records.map(r=>r.date))];
+  let streak=0;
+  for(let i=0;i<uniq.length;i++){
+    const d=new Date();d.setDate(d.getDate()-i);
+    if(uniq[i]===d.toLocaleDateString('ko-KR'))streak++;else break;
+  }
+  document.getElementById('r-total').textContent=total;
+  document.getElementById('r-days').textContent=days;
+  document.getElementById('r-streak').textContent=streak;
+  const list=document.getElementById('rec-list');
+  if(!records.length){
+    list.innerHTML='<div class="empty"><div class="empty-icon">📊</div><div class="empty-text">아직 기록 없음<br>드릴 탭에서 훈련을 시작해보세요</div></div>';return;
+  }
+  list.innerHTML=`<div class="rec-list">${records.slice(0,30).map(r=>`
+    <div class="ri">
+      <span class="rd">${r.date}</span>
+      <span style="font-size:.78rem">${r.drill}</span>
+      <span class="rc">완료</span>
+    </div>`).join('')}</div>`;
+}
+
+function resetRecord(){
+  if(!confirm('기록을 모두 초기화할까요?'))return;
+  records=[];checked=new Set();
+  localStorage.removeItem('hj_records');localStorage.removeItem('hj_checked');
+  renderDrills();updateProgress();renderRecord();showToast('초기화 완료');
+}
+
+// ════════════════════════════════════════
+// UI
+// ════════════════════════════════════════
+function switchTab(tab,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('panel-'+tab).classList.add('active');
+}
+
+let toastT;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+init();
+</script>
+</body>
+</html>
