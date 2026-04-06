@@ -108,50 +108,60 @@ header{padding:30px 0 26px;display:flex;align-items:center;gap:18px;
   font-size:.62rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px;}
 
 /* ── TACTIC ── */
-/* Scenario nav */
-.scene-nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;}
-.snav{padding:7px 14px;border-radius:8px;font-size:.75rem;font-weight:700;cursor:pointer;
+.cat-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.ctab{padding:7px 14px;border-radius:8px;font-size:.76rem;font-weight:700;cursor:pointer;
+  transition:all .2s;border:1px solid rgba(255,255,255,.15);color:var(--gr);background:transparent;}
+.ctab:hover{border-color:var(--or);color:var(--wh);}
+.ctab.active{background:var(--or);border-color:var(--or);color:white;box-shadow:0 3px 14px rgba(255,107,0,.4);}
+#cat-content{margin-bottom:10px;}
+.cat-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:6px;}
+.cat-card{background:rgba(14,26,50,.9);border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:16px 18px;}
+.cat-card-title{font-weight:700;font-size:.88rem;color:var(--or);margin-bottom:8px;}
+.cat-card-body{font-size:.78rem;color:rgba(240,235,224,.75);line-height:1.7;list-style:none;}
+.cat-card-body li{padding-left:13px;position:relative;margin-bottom:3px;}
+.cat-card-body li::before{content:'▸';position:absolute;left:0;color:var(--or);font-size:.68rem;top:2px;}
+.cat-card.full{grid-column:1/-1;}
+.scene-nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.snav{padding:7px 13px;border-radius:8px;font-size:.73rem;font-weight:700;cursor:pointer;
   transition:all .2s;border:1px solid rgba(255,255,255,.15);color:var(--gr);background:transparent;}
 .snav:hover{border-color:var(--or);color:var(--wh);}
-.snav.active{background:var(--or);border-color:var(--or);color:white;box-shadow:0 3px 14px rgba(255,107,0,.4);}
-.snav.def-btn.active{background:var(--rd);border-color:var(--rd);box-shadow:0 3px 14px rgba(239,68,68,.4);}
-
-/* Court canvas area */
-.court-section{margin-bottom:22px;}
-.court-outer{
-  width:100%;max-width:640px;margin:0 auto;
-  border-radius:16px;overflow:hidden;
-  border:2px solid rgba(255,255,255,.12);
-  box-shadow:0 16px 50px rgba(0,0,0,.55);
-  background:#3A6B24;position:relative;}
-.court-svg-wrap{width:100%;aspect-ratio:16/9;position:relative;}
-.court-svg-wrap svg{width:100%;height:100%;display:block;}
-
-/* player dot labels */
-.player-dot{transition:all .6s cubic-bezier(.4,0,.2,1);}
-.move-arrow{stroke-dasharray:8 4;animation:dashmove 1.2s linear infinite;}
-@keyframes dashmove{to{stroke-dashoffset:-24;}}
-
-/* Scene description */
+.snav.active{background:var(--or);border-color:var(--or);color:white;}
+.snav.def-btn.active{background:var(--rd);border-color:var(--rd);}
+.court-outer{width:100%;max-width:640px;margin:0 auto;border-radius:14px;overflow:hidden;
+  border:2px solid rgba(255,255,255,.12);box-shadow:0 16px 50px rgba(0,0,0,.55);}
+#court-canvas{width:100%;height:auto;display:block;}
+.play-controls{display:flex;align-items:center;gap:8px;margin:12px 0;flex-wrap:wrap;}
+.btn-play{background:var(--or);border:none;border-radius:8px;padding:8px 20px;
+  color:white;font-weight:700;font-size:.82rem;cursor:pointer;transition:all .2s;}
+.btn-play:hover{background:#ff8533;}
+.btn-play.playing{background:var(--rd);}
+.btn-step{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  border-radius:8px;padding:8px 14px;color:var(--wh);font-size:.78rem;cursor:pointer;transition:all .2s;}
+.btn-step:hover{background:rgba(255,255,255,.14);}
+.step-indicator{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--gr);margin:0 4px;}
+.btn-reset-anim{background:transparent;border:1px solid rgba(255,255,255,.15);
+  border-radius:8px;padding:8px 12px;color:var(--gr);font-size:.78rem;cursor:pointer;transition:all .2s;}
+.btn-reset-anim:hover{color:var(--wh);border-color:var(--wh);}
 .scene-box{background:rgba(14,26,50,.9);border:1px solid rgba(255,255,255,.08);
-  border-radius:14px;padding:20px 22px;margin-bottom:14px;}
-.scene-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:2px;
+  border-radius:14px;padding:18px 20px;margin-top:12px;}
+.scene-title{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:2px;
   color:var(--or);margin-bottom:10px;}
 .scene-title.def{color:var(--rd);}
-.scene-steps{display:flex;flex-direction:column;gap:8px;}
-.sstep{display:flex;gap:10px;align-items:flex-start;}
+.scene-steps{display:flex;flex-direction:column;gap:7px;}
+.sstep{display:flex;gap:10px;align-items:flex-start;opacity:.5;transition:opacity .3s;}
+.sstep.current{opacity:1;}
 .sstep-num{width:24px;height:24px;border-radius:7px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.72rem;font-weight:700;margin-top:1px;}
+  display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;margin-top:1px;}
 .atk-num{background:rgba(255,107,0,.2);color:var(--or);border:1px solid rgba(255,107,0,.3);}
 .def-num{background:rgba(239,68,68,.15);color:var(--rd);border:1px solid rgba(239,68,68,.3);}
-.sstep-text{font-size:.82rem;color:rgba(240,235,224,.82);line-height:1.65;}
+.sstep.current .sstep-num{background:var(--or);color:white;border-color:var(--or);}
+.sstep.current.def-step .sstep-num{background:var(--rd);border-color:var(--rd);}
+.sstep-text{font-size:.81rem;color:rgba(240,235,224,.7);line-height:1.65;}
 .sstep-text strong{color:var(--wh);font-weight:700;}
-
-/* Key points */
-.key-points{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.sstep.current .sstep-text{color:rgba(240,235,224,.95);}
+.key-points{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px;}
 .kp{background:rgba(255,107,0,.08);border:1px solid rgba(255,107,0,.2);
-  border-radius:6px;padding:4px 10px;font-size:.7rem;color:rgba(240,235,224,.7);}
+  border-radius:6px;padding:3px 9px;font-size:.7rem;color:rgba(240,235,224,.7);}
 .kp.def{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.2);}
 
 /* ── TIPS ── */
@@ -222,28 +232,8 @@ header{padding:30px 0 26px;display:flex;align-items:center;gap:18px;
   <div class="ball"></div>
   <div class="hi">
     <h1>스윙맨 드릴</h1>
-    <p>스윙맨 트레이닝 가이드 · SG / SF 포지션</p>
   </div>
 </header>
-
-<!-- HERO -->
-<div class="hero">
-  <div>
-    <div class="ptag">🏀 스윙맨 포지션</div>
-    <h2>스윙맨 드릴</h2>
-    <p class="sub">스윙맨 SG/SF | 롤모델 기반 훈련 가이드<br>
-      3점슛 성공률 48%+ · 캐치앤샷 · 오프더볼 · 미드레인지 · 드라이브
-    </p>
-    <div class="pstats">
-      <div class="sc"><div class="n">17.2</div><div class="l">평균 득점</div></div>
-      <div class="sc"><div class="n">48%</div><div class="l">3점 성공률</div></div>
-      <div class="sc"><div class="n">3.4</div><div class="l">3점슛/경기</div></div>
-      <div class="sc"><div class="n">6.1</div><div class="l">리바운드</div></div>
-      <div class="sc"><div class="n">2.7</div><div class="l">어시스트</div></div>
-    </div>
-  </div>
-  <div class="pos-badge">SG<br>SF</div>
-</div>
 
 <!-- TABS -->
 <div class="tabs">
@@ -265,81 +255,37 @@ header{padding:30px 0 26px;display:flex;align-items:center;gap:18px;
 
 <!-- ══ TACTIC ══ -->
 <div id="panel-tactic" class="panel">
-  <div class="stitle">스윙맨 5대5 움직임 시나리오</div>
+  <div class="stitle">스윙맨 5대5 역할 & 움직임</div>
 
-  <!-- Scenario buttons -->
-  <div class="scene-nav" id="scene-nav"></div>
-
-  <!-- Court -->
-  <div class="court-section">
-    <div class="court-outer">
-      <div class="court-svg-wrap">
-        <svg id="court-svg" viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg">
-          <!-- Floor -->
-          <rect width="640" height="360" fill="#4A7828"/>
-          <!-- Lines -->
-          <g fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2">
-            <rect x="12" y="12" width="616" height="336" rx="3"/>
-            <line x1="320" y1="12" x2="320" y2="348"/>
-            <circle cx="320" cy="180" r="48"/>
-            <circle cx="320" cy="180" r="6" fill="rgba(255,255,255,.55)" stroke="none"/>
-            <!-- Left key -->
-            <rect x="12" y="96" width="148" height="168"/>
-            <path d="M160,96 A72,72 0 0,1 160,264" stroke-dasharray="8,4"/>
-            <!-- Right key -->
-            <rect x="480" y="96" width="148" height="168"/>
-            <path d="M480,96 A72,72 0 0,0 480,264" stroke-dasharray="8,4"/>
-            <!-- 3pt Left -->
-            <path d="M12,68 L100,68 A168,168 0 0,1 100,292 L12,292"/>
-            <!-- 3pt Right -->
-            <path d="M628,68 L540,68 A168,168 0 0,0 540,292 L628,292"/>
-          </g>
-          <!-- Left basket -->
-          <circle cx="64" cy="180" r="12" fill="none" stroke="rgba(255,165,0,.9)" stroke-width="2.5"/>
-          <rect x="12" y="173" width="52" height="14" fill="rgba(255,165,0,.2)" stroke="rgba(255,165,0,.8)" stroke-width="1.5"/>
-          <!-- Right basket (attack) -->
-          <circle cx="576" cy="180" r="12" fill="none" stroke="rgba(255,165,0,.9)" stroke-width="2.5"/>
-          <rect x="576" y="173" width="52" height="14" fill="rgba(255,165,0,.2)" stroke="rgba(255,165,0,.8)" stroke-width="1.5"/>
-
-          <!-- ARROW DEFS -->
-          <defs>
-            <marker id="arr-or" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto">
-              <polygon points="0,0 7,3.5 0,7" fill="#FF6B00"/>
-            </marker>
-            <marker id="arr-wh" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto">
-              <polygon points="0,0 7,3.5 0,7" fill="rgba(255,255,255,.7)"/>
-            </marker>
-            <marker id="arr-rd" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto">
-              <polygon points="0,0 7,3.5 0,7" fill="#EF4444"/>
-            </marker>
-            <marker id="arr-gn" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto">
-              <polygon points="0,0 7,3.5 0,7" fill="#22C55E"/>
-            </marker>
-          </defs>
-
-          <!-- DYNAMIC LAYER -->
-          <g id="dynamic-layer"></g>
-
-          <!-- Legend -->
-          <rect x="12" y="338" width="616" height="22" fill="rgba(0,0,0,.25)" rx="2"/>
-          <circle cx="26" cy="349" r="5" fill="#FF6B00"/>
-          <text x="35" y="353" fill="rgba(255,255,255,.8)" font-size="9" font-family="sans-serif">SG 포지션</text>
-          <circle cx="110" cy="349" r="5" fill="#3B82F6"/>
-          <text x="119" y="353" fill="rgba(255,255,255,.8)" font-size="9" font-family="sans-serif">팀메이트</text>
-          <circle cx="190" cy="349" r="5" fill="rgba(239,68,68,.9)"/>
-          <text x="199" y="353" fill="rgba(255,255,255,.8)" font-size="9" font-family="sans-serif">수비</text>
-          <line x1="268" y1="349" x2="290" y2="349" stroke="#FF6B00" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-or)"/>
-          <text x="297" y="353" fill="rgba(255,255,255,.8)" font-size="9" font-family="sans-serif">내 이동</text>
-          <line x1="380" y1="349" x2="402" y2="349" stroke="rgba(255,255,255,.6)" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-wh)"/>
-          <text x="409" y="353" fill="rgba(255,255,255,.8)" font-size="9" font-family="sans-serif">팀원 이동</text>
-          <line x1="476" y1="349" x2="498" y2="349" stroke="#22C55E" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-gn)"/>
-          <text x="505" y="353" fill="rgba(255,255,255,.8)" font-size="9" font-family="sans-serif">패스</text>
-        </svg>
-      </div>
-    </div>
+  <!-- Category tabs -->
+  <div class="cat-tabs" id="cat-tabs">
+    <button class="ctab active" onclick="switchCat('role',this)">📋 기본 역할</button>
+    <button class="ctab" onclick="switchCat('offball',this)">🏃 볼 없을 때</button>
+    <button class="ctab" onclick="switchCat('score',this)">🎯 득점 방식</button>
+    <button class="ctab" onclick="switchCat('defense',this)">🛡 수비</button>
   </div>
 
-  <!-- Scene description -->
+  <!-- Info cards -->
+  <div id="cat-content"></div>
+
+  <!-- Animated Court -->
+  <div class="stitle" style="margin-top:28px">움직임 애니메이션</div>
+  <div class="scene-nav" id="scene-nav"></div>
+
+  <div class="court-outer">
+    <canvas id="court-canvas" width="640" height="340"></canvas>
+  </div>
+
+  <!-- Play controls -->
+  <div class="play-controls">
+    <button class="btn-play" id="btn-play" onclick="togglePlay()">▶ 플레이</button>
+    <button class="btn-step" onclick="stepBack()">◀ 이전</button>
+    <button class="btn-step" onclick="stepNext()">다음 ▶</button>
+    <span class="step-indicator" id="step-indicator">1 / 1</span>
+    <button class="btn-reset-anim" onclick="resetAnim()">↺ 처음</button>
+  </div>
+
+  <!-- Step description -->
   <div id="scene-box"></div>
 </div>
 
@@ -398,252 +344,628 @@ header{padding:30px 0 26px;display:flex;align-items:center;gap:18px;
 // DRILL DATA
 // ════════════════════════════════════════
 const DRILLS=[
-  {id:'stat',cat:'기본',name:'제자리 드리블',purpose:'볼 감각 기본기 — 손가락 끝 컨트롤',desc:'눈은 전방 고정, 볼을 보지 않고 양손 교대 드리블.',steps:['오른손 15초 → 왼손 15초 → 3세트','속도를 점진적으로 올리며 손가락 끝으로 컨트롤','마지막 세트는 최대 속도로 1분 연속'],time:'10분',level:'초급'},
-  {id:'low',cat:'기본',name:'로우 드리블',purpose:'수비 압박 상황 볼 보호 — 낮은 자세 유지',desc:'무릎 아래 높이로 최대한 낮게. 드라이브 전 준비 자세.',steps:['스탠스 넓게, 허리 낮추기','무릎 아래 15cm 목표로 짧게 드리블','양손 30초씩 → 교대 1분'],time:'8분',level:'초급'},
-  {id:'cross',cat:'기본',name:'크로스 오버 바닥 터치',purpose:'방향 전환 & 수비 제치기 — 드라이브 핵심',desc:'크로스오버 시 볼이 바닥에 닿을 정도로 낮게. 무게중심 이동으로 수비 반응 유도.',steps:['제자리 크로스오버 — 볼이 바닥 스치듯 낮게','이동하며 크로스오버 — 매번 바닥 터치 의식','크로스오버 → 즉시 드라이브 마무리'],time:'12분',level:'초급'},
-  {id:'between',cat:'기본',name:'비트윈 더 레그',purpose:'빠른 핸드 체인지 — 크로스오버보다 짧은 이동',desc:'다리 사이로 볼을 통과시켜 손 바꾸기. 더 빠른 전환 가능.',steps:['한 발 내딛고 앞발 사이로 볼 통과','리듬: R드리블 → 왼발 내딛 → 비트윈 → L','이동하며 연속 L-R-L-R 10회 왕복'],time:'12분',level:'중급'},
-  {id:'behind',cat:'기본',name:'비하인드 더 백',purpose:'급격한 방향 변환 — 수비 따돌리기',desc:'등 뒤로 볼을 돌려 반대 손 캐치. 손목 스냅으로 처리.',steps:['정지: R→등뒤→L 반복 캐치','걸으며: 한 걸음마다 비하인드 교체','달리며: 드리블 주행 중 적용'],time:'10분',level:'중급'},
-  {id:'pocket',cat:'기본',name:'포켓 드리블',purpose:'밀착 수비 시 볼 보호 — 슛/패스 전 자세',desc:'허리 옆 "포켓" 위치에서 짧고 빠른 드리블.',steps:['오른 포켓 15초 → 왼 포켓 15초','포켓 드리블 → 헤드페이크 → 드라이브','포켓 드리블 → 스텝백 점퍼 연결'],time:'10분',level:'중급'},
-  {id:'hesi',cat:'응용',name:'헤지테이션',purpose:'수비 타이밍 무너뜨리기 — 수비 타이밍 무너뜨리기',desc:'드리블 중 잠깐 멈추는 척 → 수비 반응 유도 → 폭발 전진.',steps:['전진 드리블 → 0.3초 멈춤','수비 반응 순간 반대 방향 드라이브','또는 멈춤 후 즉시 점프슛 연결'],time:'15분',level:'중급'},
-  {id:'combo',cat:'응용',name:'콤보 드릴',purpose:'실전 종합 — 아이솔레이션 패턴 완성',desc:'크로스오버+비트윈+비하인드+헤지테이션 연속 연결.',steps:['크로스 2회→비트윈 1회→비하인드 1회 (1세트)','5세트 연속, 마지막은 드라이브/점퍼 마무리','30초 1세트, 쉬지 않고 유지가 핵심'],time:'15분',level:'고급'},
-  {id:'straight',cat:'카운트',name:'스트레이트 드리블',purpose:'기본 드리블 감각 & 볼 컨트롤 루틴',desc:'제자리에서 양손 교대로 직선 드리블. 손가락 끝으로 튕기고 눈은 전방 고정.',steps:['오른손 100개 → 왼손 100개','총 200개, 끊기지 않고 연속으로','실수하면 그 자리부터 다시 카운트'],time:'10분',level:'초급'},
-  {id:'vdrill',cat:'카운트',name:'V 드리블',purpose:'방향 전환 볼 감각 — 좌우·앞뒤 4방향',desc:'V자 궤적으로 드리블. 양손 / 좌우 / 앞뒤 각각 100개씩.',steps:['양손 교대 V드리블 100개 (기본)','좌측 방향 100개 → 우측 방향 100개','앞쪽 V 100개 → 뒤쪽 V 100개'],time:'15분',level:'초급'},
-  {id:'crosscount',cat:'카운트',name:'크로스 드리블 3단계',purpose:'높이별 크로스오버 — 낮게·중간·높게',desc:'낮게(손가락 높이), 중간(허리), 높게(어깨) 각 100개. 높이마다 다른 근육 단련.',steps:['낮게 — 손가락 높이 크로스 100개 (수비 압박 상황)','중간 — 허리 높이 크로스 100개 (기본 크로스오버)','높게 — 어깨 높이 크로스 100개 (빠른 전환 연습)'],time:'15분',level:'초급'},
-  {id:'pocketcount',cat:'카운트',name:'포켓 드리블 카운트',purpose:'양손·좌우 포켓 드리블 집중 반복',desc:'허리 옆 포켓 위치에서 짧고 빠르게. 볼 보호 감각 극대화.',steps:['오른 포켓 50개 → 왼 포켓 50개 (양손)','왼쪽 몸 옆 포켓 50개 → 오른쪽 50개 (좌우)','손목 스냅만으로 튕기는 느낌 유지'],time:'10분',level:'중급'},
-  {id:'spin',cat:'카운트',name:'스핀 무브',purpose:'수비 접촉 후 방향 전환 — 피벗 활용',desc:'드리블 후 몸을 회전시켜 수비를 등으로 제치는 기술. 양손 30개씩.',steps:['오른손 드리블 → 왼발 피벗 → 오른쪽 스핀 30개','왼손 드리블 → 오른발 피벗 → 왼쪽 스핀 30개','회전 후 볼 보호 자세 유지가 핵심'],time:'12분',level:'중급'},
-  {id:'betweenstatic',cat:'카운트',name:'비트윈 — 드리블 없이',purpose:'비트윈 기본 동작 익히기 — 핸드 패스',desc:'드리블 없이 손으로 볼을 다리 사이로 패스. 동작 정확도 우선.',steps:['오른손→다리 사이→왼손 패스 50개','왼손→다리 사이→오른손 패스 50개','리듬감 있게, 정확한 위치에서 받기'],time:'8분',level:'초급'},
-  {id:'betweenmove',cat:'카운트',name:'비트윈 — 드리블하며',purpose:'이동 비트윈 실전 적용',desc:'드리블하며 이동 중 비트윈 레그. 정방향 50개 후 반대 방향 50개.',steps:['정방향 이동하며 비트윈 50개 (R→L→R)','반대 방향 이동하며 비트윈 50개 (L→R→L)','속도보다 볼이 다리에 닿지 않는 것이 우선'],time:'12분',level:'중급'},
+  {id:'straight',cat:'기본',name:'스트레이트 드리블',purpose:'기본 드리블 감각 & 볼 컨트롤 루틴',desc:'제자리에서 양손 교대로 직선 드리블. 손가락 끝으로 튕기고 눈은 전방 고정.',steps:['오른손 100개 → 왼손 100개','총 200개, 끊기지 않고 연속으로','실수하면 그 자리부터 다시 카운트'],time:'10분',level:'초급'},
+  {id:'crosscount',cat:'기본',name:'크로스 드리블 3단계',purpose:'높이별 크로스오버 — 낮게·중간·높게',desc:'낮게(손가락 높이), 중간(허리), 높게(어깨) 각 100개. 높이마다 다른 근육 단련.',steps:['낮게 — 손가락 높이 크로스 100개 (수비 압박 상황)','중간 — 허리 높이 크로스 100개 (기본 크로스오버)','높게 — 어깨 높이 크로스 100개 (빠른 전환 연습)'],time:'15분',level:'초급'},
+  {id:'vdrill',cat:'기본',name:'V 드리블',purpose:'방향 전환 볼 감각 — 좌우·앞뒤 4방향',desc:'V자 궤적으로 드리블. 양손 / 좌우 / 앞뒤 각각 100개씩.',steps:['양손 교대 V드리블 100개 (기본)','좌측 방향 100개 → 우측 방향 100개','앞쪽 V 100개 → 뒤쪽 V 100개'],time:'15분',level:'초급'},
+  {id:'inout',cat:'기본',name:'인앤아웃 드리블',purpose:'수비 속이기 — 방향 페이크 핵심 기술',desc:'볼을 안쪽으로 넣는 척하다 바깥으로 빼내는 페이크 드리블. 수비 무게중심 흔들기.',steps:['오른손 인앤아웃 50개 — 안으로 넣는 척 → 바깥으로','왼손 인앤아웃 50개 — 반대 방향 동일하게','페이크 후 즉시 드라이브 연결 연습'],time:'10분',level:'중급'},
+  {id:'betweenstatic',cat:'기본',name:'비트윈 — 드리블 없이',purpose:'비트윈 기본 동작 익히기 — 핸드 패스',desc:'드리블 없이 손으로 볼을 다리 사이로 패스. 동작 정확도 우선.',steps:['오른손→다리 사이→왼손 패스 50개','왼손→다리 사이→오른손 패스 50개','리듬감 있게, 정확한 위치에서 받기'],time:'8분',level:'초급'},
+  {id:'betweenmove',cat:'기본',name:'비트윈 — 드리블하며',purpose:'이동 비트윈 실전 적용',desc:'드리블하며 이동 중 비트윈 레그. 정방향 50개 후 반대 방향 50개.',steps:['정방향 이동하며 비트윈 50개 (R→L→R)','반대 방향 이동하며 비트윈 50개 (L→R→L)','속도보다 볼이 다리에 닿지 않는 것이 우선'],time:'12분',level:'중급'},
+  {id:'pocketcount',cat:'기본',name:'포켓 드리블',purpose:'양손·좌우 포켓 드리블 집중 반복',desc:'허리 옆 포켓 위치에서 짧고 빠르게. 볼 보호 감각 극대화.',steps:['오른 포켓 50개 → 왼 포켓 50개 (양손)','왼쪽 몸 옆 포켓 50개 → 오른쪽 50개 (좌우)','손목 스냅만으로 튕기는 느낌 유지'],time:'10분',level:'중급'},
+  {id:'spin',cat:'기본',name:'스핀 무브',purpose:'수비 접촉 후 방향 전환 — 피벗 활용',desc:'드리블 후 몸을 회전시켜 수비를 등으로 제치는 기술. 양손 30개씩.',steps:['오른손 드리블 → 왼발 피벗 → 오른쪽 스핀 30개','왼손 드리블 → 오른발 피벗 → 왼쪽 스핀 30개','회전 후 볼 보호 자세 유지가 핵심'],time:'12분',level:'중급'},
+  {id:'behind',cat:'기본',name:'비하인드 더 백 드리블',purpose:'급격한 방향 변환 — 수비 따돌리기',desc:'등 뒤로 볼을 돌려 반대 손 캐치. 손목 스냅으로 처리.',steps:['오른손→등 뒤→왼손 50개','왼손→등 뒤→오른손 50개','손목 스냅으로 볼을 밀어내듯, 등에 볼이 닿지 않게'],time:'10분',level:'중급'},
 ];
 
 // ════════════════════════════════════════
-// SCENE DATA — 스윙맨 5대5 시나리오
+// CATEGORY INFO DATA
 // ════════════════════════════════════════
-/*
- 코트 좌표 (viewBox 640×360, 공격 방향 = 오른쪽 골대)
- SG 포지션 = orange, 팀메이트 = blue, 수비 = red
- 화살표: 내 이동=orange, 팀원이동=white, 패스=green
-*/
+const CAT_DATA={
+  role:{
+    cards:[
+      {title:'🏀 기본 포지션', body:['코트의 윙(45도) 또는 코너에 위치','PG와 빅맨 사이의 브릿지 역할','공격·수비 모두 여러 포지션 커버 가능','팀에서 가장 다재다능한 포지션']},
+      {title:'⚡ 공격 책임', body:['외곽슛(3점·미드레인지) 주 득점원','드라이브 돌파 후 골밑 마무리','팀메이트 위한 킥아웃 패스 연결','스페이싱으로 팀 공격 공간 확보']},
+      {title:'🛡 수비 책임', body:['상대 SG·SF·때로는 PG까지 수비','팀 최고의 수비수인 경우 많음','아웃사이드 리바운드 담당','헬프 수비 및 박스아웃 적극 참여']},
+      {title:'🤝 기타 역할', body:['코트 전체를 읽고 오픈 팀원 연결','필요시 볼핸들러 역할 수행','빠른 전환 공격의 출발점','에너지·허슬플레이로 팀 분위기 주도']},
+    ]
+  },
+  offball:{
+    cards:[
+      {title:'V컷', body:['페인트 쪽으로 2~3발 이동 후 급방향전환','수비 등을 밀어내며 볼 쪽으로 컷','패스 받으면 즉시 슛 또는 드라이브 판단','가장 기본적인 오프볼 무브']},
+      {title:'백도어 컷', body:['수비가 패스 차단(오버플레이)할 때 사용','등 뒤로 폭발적으로 골밑 파고들기','PG와 눈맞춤 후 2~3보 전력질주','레이업 또는 핑거롤로 마무리']},
+      {title:'컬 컷', body:['스크리너 주위를 곡선으로 돌아나오기','슈터가 이상적인 위치에서 볼 받는 컷','스크린을 빡빡하게 스쳐 지나는 것이 핵심','캐치앤샷 또는 드라이브 연결']},
+      {title:'플레어 컷 & 스팟업', body:['스크린 후 볼 반대 방향 외곽으로 빠지기','픽앤롤 발생 시 코너·윙 스팟업 대기','항상 feet set 상태로 패스 기다리기','킥아웃 패스를 위한 오픈 위치 유지']},
+    ]
+  },
+  score:{
+    cards:[
+      {title:'🎯 외곽슛', body:['캐치앤샷 — 볼 받기 전에 이미 feet set','스크린 이용 후 오픈 3점 마무리','미드레인지 풀업 점퍼 (드라이브 유도 후)','스텝백 점퍼로 수비 무너뜨리기']},
+      {title:'⚡ 드라이브', body:['헤지테이션 → 폭발적 첫 발','크로스오버로 수비 무게중심 이동 유도','드라이브 후 레이업·플로터·핑거롤','드라이브 후 킥아웃 패스도 항상 옵션']},
+      {title:'💪 포스트 무브', body:['백다운 후 훅샷 또는 페이드어웨이','미스매치 상황(수비가 작을 때) 적극 공략','스핀 무브로 수비 등 뒤 공략','숄더페이크 → 드라이브 연결']},
+      {title:'🔪 컷 득점', body:['백도어 컷 → 레이업','기브앤고 (패스 후 즉시 컷)','플래시 컷 (페인트로 빠르게 파고들기)','딥 컷 (코트 가로질러 반대편 진입)']},
+    ]
+  },
+  defense:{
+    cards:[
+      {title:'🛡 온볼 수비', body:['상대 허리(벨트) 주시 — 페이크 방지','무릎 굽히고 낮은 자세 유지','드라이브를 코너 쪽으로 유도','손은 항상 위로 — 파울 방지']},
+      {title:'🔄 헬프 수비', body:['볼이 반대쪽 이동 시 I포지션으로','마크맨과 볼 사이 중간 위치 유지','헬프 후 빠르게 마크맨으로 복귀','스크린 당하면 즉시 소통(스위치·파이트')},
+      {title:'💥 리바운드', body:['슛 시도 순간 즉시 박스아웃','마크맨을 등으로 먼저 밀어내기','아웃사이드 리바운드 담당','확보 후 빠른 아웃렛 패스 전환 공격']},
+      {title:'🏃 클로즈아웃', body:['상대가 볼 받을 때 빠르게 돌진','마지막 2발은 짧게 쪼개어 멈추기','손은 위로 — 슛 차단 준비','무게중심 낮게 — 드라이브 대비']},
+    ]
+  }
+};
+
+// ════════════════════════════════════════
+// SCENE DATA (애니메이션용)
+// 각 scene은 frames 배열로 구성
+// 각 frame: {players:[{id,x,y,fill,label,r}], desc, trails:[{x1,y1,x2,y2,color,type}]}
+// ════════════════════════════════════════
 const SCENES=[
 {
-  id:'s1', label:'① 코너 3점', type:'atk',
-  title:'코너 3점 포지셔닝 (SG 핵심 루트)',
-  players:[
-    {id:'pg',x:220,y:180,fill:'#3B82F6',label:'PG',r:13},
-    {id:'sg',x:340,y:80, fill:'#FF6B00',label:'SG★',r:15},   // SG
-    {id:'sf',x:340,y:280,fill:'#3B82F6',label:'SF',r:13},
-    {id:'pf',x:440,y:120,fill:'#3B82F6',label:'PF',r:13},
-    {id:'c', x:490,y:180,fill:'#3B82F6',label:'C',r:13},
-    {id:'d1',x:380,y:90, fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d2',x:380,y:270,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d3',x:280,y:180,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d4',x:460,y:130,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d5',x:510,y:190,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-  ],
-  arrows:[
-    // SG: 윙→코너 이동
-    {x1:340,y1:80, x2:520,y2:55, color:'#FF6B00',dash:true,marker:'arr-or'},
-    // PG→SG 패스 (after move)
-    {x1:220,y1:180,x2:516,y2:62,color:'#22C55E',dash:true,marker:'arr-gn'},
-    // PF 스크린
-    {x1:440,y1:120,x2:390,y2:95,color:'rgba(255,255,255,.5)',dash:false,marker:'arr-wh'},
-  ],
-  steps:[
-    {n:'①',t:'<strong>PG가 탑(top of key) 볼 소유</strong> — SG는 윙(45도) 위치에서 대기'},
-    {n:'②',t:'<strong>PF가 수비(D1)에게 스크린</strong>을 세워줌'},
-    {n:'③',t:'스크린 순간 <strong>SG가 코너로 빠르게 이동</strong> — feet set 준비'},
-    {n:'④',t:'<strong>PG가 코너로 패스</strong> → 이미 자세를 잡고 있어 0.5초 이내 캐치앤샷'},
-    {n:'⑤',t:'슛이 막히면 <strong>드라이브 또는 킥아웃 패스</strong>로 옵션 전환'},
-  ],
-  points:['Feet set 선행','스크린 타이밍','릴리즈 빠르게'],
+  id:'s1', label:'① V컷 → 3점', type:'atk',
+  title:'V컷 → 캐치앤샷',
+  points:['페인트로 먼저 들어가기','급방향전환 타이밍','feet set 준비'],
+  frames:[
+    {
+      desc:'SG가 윙(45도) 위치에서 대기. 수비가 외곽 패스를 막고 있다.',
+      players:[
+        {id:'pg',x:200,y:170,fill:'#3B82F6',label:'PG',r:13},
+        {id:'sg',x:390,y:90,fill:'#FF6B00',label:'SG',r:15},
+        {id:'sf',x:390,y:260,fill:'#3B82F6',label:'SF',r:13},
+        {id:'pf',x:460,y:140,fill:'#3B82F6',label:'PF',r:13},
+        {id:'c',x:500,y:180,fill:'#3B82F6',label:'C',r:13},
+        {id:'d1',x:400,y:100,fill:'#EF4444',label:'D',r:11},
+        {id:'d2',x:400,y:250,fill:'#EF4444',label:'D',r:11},
+        {id:'d3',x:260,y:170,fill:'#EF4444',label:'D',r:11},
+        {id:'d4',x:470,y:150,fill:'#EF4444',label:'D',r:11},
+        {id:'d5',x:510,y:190,fill:'#EF4444',label:'D',r:11},
+      ],
+      trails:[]
+    },
+    {
+      desc:'SG가 페인트 쪽으로 2~3발 들어가며 수비를 끌어당긴다.',
+      players:[
+        {id:'pg',x:200,y:170,fill:'#3B82F6',label:'PG',r:13},
+        {id:'sg',x:360,y:140,fill:'#FF6B00',label:'SG',r:15},
+        {id:'sf',x:390,y:260,fill:'#3B82F6',label:'SF',r:13},
+        {id:'pf',x:460,y:140,fill:'#3B82F6',label:'PF',r:13},
+        {id:'c',x:500,y:180,fill:'#3B82F6',label:'C',r:13},
+        {id:'d1',x:370,y:148,fill:'#EF4444',label:'D',r:11},
+        {id:'d2',x:400,y:250,fill:'#EF4444',label:'D',r:11},
+        {id:'d3',x:260,y:170,fill:'#EF4444',label:'D',r:11},
+        {id:'d4',x:470,y:150,fill:'#EF4444',label:'D',r:11},
+        {id:'d5',x:510,y:190,fill:'#EF4444',label:'D',r:11},
+      ],
+      trails:[{x1:390,y1:90,x2:360,y2:140,color:'#FF6B00',type:'move'}]
+    },
+    {
+      desc:'급방향전환! SG가 코너로 빠르게 빠지며 feet set 준비.',
+      players:[
+        {id:'pg',x:200,y:170,fill:'#3B82F6',label:'PG',r:13},
+        {id:'sg',x:520,y:55,fill:'#FF6B00',label:'SG',r:15},
+        {id:'sf',x:390,y:260,fill:'#3B82F6',label:'SF',r:13},
+        {id:'pf',x:460,y:140,fill:'#3B82F6',label:'PF',r:13},
+        {id:'c',x:500,y:180,fill:'#3B82F6',label:'C',r:13},
+        {id:'d1',x:390,y:140,fill:'#EF4444',label:'D',r:11},
+        {id:'d2',x:400,y:250,fill:'#EF4444',label:'D',r:11},
+        {id:'d3',x:260,y:170,fill:'#EF4444',label:'D',r:11},
+        {id:'d4',x:470,y:150,fill:'#EF4444',label:'D',r:11},
+        {id:'d5',x:510,y:190,fill:'#EF4444',label:'D',r:11},
+      ],
+      trails:[{x1:360,y1:140,x2:520,y2:55,color:'#FF6B00',type:'move'}]
+    },
+    {
+      desc:'PG가 코너로 패스! SG가 캐치앤샷으로 마무리.',
+      players:[
+        {id:'pg',x:200,y:170,fill:'#3B82F6',label:'PG',r:13},
+        {id:'sg',x:520,y:55,fill:'#FF6B00',label:'SG',r:15},
+        {id:'sf',x:390,y:260,fill:'#3B82F6',label:'SF',r:13},
+        {id:'pf',x:460,y:140,fill:'#3B82F6',label:'PF',r:13},
+        {id:'c',x:500,y:180,fill:'#3B82F6',label:'C',r:13},
+        {id:'d1',x:430,y:110,fill:'#EF4444',label:'D',r:11},
+        {id:'d2',x:400,y:250,fill:'#EF4444',label:'D',r:11},
+        {id:'d3',x:260,y:170,fill:'#EF4444',label:'D',r:11},
+        {id:'d4',x:470,y:150,fill:'#EF4444',label:'D',r:11},
+        {id:'d5',x:510,y:190,fill:'#EF4444',label:'D',r:11},
+      ],
+      trails:[{x1:200,y1:170,x2:520,y2:55,color:'#22C55E',type:'pass'}]
+    },
+  ]
 },
 {
   id:'s2', label:'② 백도어 컷', type:'atk',
   title:'백도어 컷 (Backdoor Cut)',
-  players:[
-    {id:'pg',x:220,y:180,fill:'#3B82F6',label:'PG',r:13},
-    {id:'sg',x:380,y:80, fill:'#FF6B00',label:'SG★',r:15},
-    {id:'sf',x:380,y:280,fill:'#3B82F6',label:'SF',r:13},
-    {id:'pf',x:460,y:130,fill:'#3B82F6',label:'PF',r:13},
-    {id:'c', x:500,y:180,fill:'#3B82F6',label:'C',r:13},
-    {id:'d1',x:390,y:90, fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d2',x:390,y:270,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d3',x:280,y:180,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d4',x:470,y:140,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d5',x:510,y:190,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-  ],
-  arrows:[
-    // D1이 SG을 오버플레이 (패스길 막음)
-    {x1:390,y1:90,x2:360,y2:82,color:'rgba(239,68,68,.6)',dash:false,marker:'arr-rd'},
-    // SG 백도어 컷
-    {x1:380,y1:80,x2:560,y2:170,color:'#FF6B00',dash:true,marker:'arr-or'},
-    // PG 롭 패스
-    {x1:220,y1:180,x2:554,y2:166,color:'#22C55E',dash:true,marker:'arr-gn'},
-  ],
-  steps:[
-    {n:'①',t:'SG가 윙에 서 있으면 <strong>수비가 패스 차단을 위해 오버플레이</strong>'},
-    {n:'②',t:'수비 등 뒤가 열리는 순간 <strong>폭발적으로 골밑으로 파고들기</strong> (2~3보 전력 질주)'},
-    {n:'③',t:'<strong>PG가 골밑으로 로브 패스</strong> — 달리며 캐치'},
-    {n:'④',t:'레이업 또는 <strong>한 손 핑거롤</strong>로 마무리 '},
-    {n:'⑤',t:'수비가 백도어를 막으면 → 원위치 복귀 → 코너 3점 루트로 전환'},
-  ],
   points:['수비 등 뒤 확인','2~3보 전력질주','레이업 준비'],
+  frames:[
+    {
+      desc:'SG가 윙에 위치. 수비(D1)가 패스 차단을 위해 오버플레이 중.',
+      players:[
+        {id:'pg',x:200,y:170,fill:'#3B82F6',label:'PG',r:13},
+        {id:'sg',x:390,y:85,fill:'#FF6B00',label:'SG',r:15},
+        {id:'sf',x:390,y:265,fill:'#3B82F6',label:'SF',r:13},
+        {id:'pf',x:460,y:140,fill:'#3B82F6',label:'PF',r:13},
+        {id:'c',x:500,y:180,fill:'#3B82F6',label:'C',r:13},
+        {id:'d1',x:365,y:85,fill:'#EF4444',label:'D',r:11},
+        {id:'d2',x:400,y:255,fill:'#EF4444',label:'D',r:11},
+        {id:'d3',x:260,y:170,fill:'#EF4444',label:'D',r:11},
+        {id:'d4',x:470,y:150,fill:'#EF4444',label:'D',r:11},
+        {id:'d5',x:510,y:190,fill:'#EF4444',label:'D',r:11},
+      ],
+      trails:[]
+    },
+    {
+      desc:'수비 등이 열리는 순간 SG가 골밑으로 폭발적으로 파고든다!',
+      players:[
+        {id:'pg',x:200,y:170,fill:'#3B82F6',label:'PG',r:13},
+        {id:'sg',x:490,y:155,fill:'#FF6B00',label:'SG',r:15},
+        {id:'sf',x:390,y:265,fill:'#3B82F6',label:'SF',r:13},
+        {id:'pf',x:460,y:140,fill:'#3B82F6',label:'PF',r:13},
+        {id:'c',x:500,y:180,fill:'#3B82F6',label:'C',r:13},
+        {id:'d1',x:365,y:85,fill:'#EF4444',label:'D',r:11},
+        {id:'d2',x:400,y:255,fill:'#EF4444',label:'D',r:11},
+        {id:'d3',x:260,y:170,fill:'#EF4444',label:'D',r:11},
+        {id:'d4',x:470,y:150,fill:'#EF4444',label:'D',r:11},
+        {id:'d5',x:510,y:190,fill:'#EF4444',label:'D',r:11},
+      ],
+      trails:[{x1:390,y1:85,x2:490,y2:155,color:'#FF6B00',type:'move'}]
+    },
+    {
+      desc:'PG가 로브 패스! SG가 달리며 캐치 → 레이업 마무리.',
+      players:[
+        {id:'pg',x:200,y:170,fill:'#3B82F6',label:'PG',r:13},
+        {id:'sg',x:555,y:175,fill:'#FF6B00',label:'SG',r:15},
+        {id:'sf',x:390,y:265,fill:'#3B82F6',label:'SF',r:13},
+        {id:'pf',x:460,y:140,fill:'#3B82F6',label:'PF',r:13},
+        {id:'c',x:500,y:180,fill:'#3B82F6',label:'C',r:13},
+        {id:'d1',x:365,y:85,fill:'#EF4444',label:'D',r:11},
+        {id:'d2',x:400,y:255,fill:'#EF4444',label:'D',r:11},
+        {id:'d3',x:260,y:170,fill:'#EF4444',label:'D',r:11},
+        {id:'d4',x:490,y:165,fill:'#EF4444',label:'D',r:11},
+        {id:'d5',x:510,y:190,fill:'#EF4444',label:'D',r:11},
+      ],
+      trails:[
+        {x1:490,y1:155,x2:555,y2:175,color:'#FF6B00',type:'move'},
+        {x1:200,y1:170,x2:555,y2:175,color:'#22C55E',type:'pass'},
+      ]
+    },
+  ]
 },
 {
-  id:'s3', label:'③ 오프스크린', type:'atk',
-  title:'오프-볼 스크린 활용 (Off-Ball Screen)',
-  players:[
-    {id:'pg',x:220,y:180,fill:'#3B82F6',label:'PG',r:13},
-    {id:'sg',x:440,y:260,fill:'#FF6B00',label:'SG★',r:15},
-    {id:'sf',x:380,y:80, fill:'#3B82F6',label:'SF',r:13},
-    {id:'pf',x:390,y:200,fill:'#3B82F6',label:'PF',r:13},  // 스크리너
-    {id:'c', x:500,y:180,fill:'#3B82F6',label:'C',r:13},
-    {id:'d1',x:450,y:270,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d2',x:385,y:90, fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d3',x:280,y:180,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d4',x:510,y:190,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d5',x:395,y:205,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-  ],
-  arrows:[
-    // PF 스크린 세팅 이동
-    {x1:390,y1:200,x2:410,y2:240,color:'rgba(255,255,255,.5)',dash:false,marker:'arr-wh'},
-    // SG 스크린 이용해 45도 윙으로
-    {x1:440,y1:260,x2:360,y2:100,color:'#FF6B00',dash:true,marker:'arr-or'},
-    // PG 패스
-    {x1:220,y1:180,x2:356,y2:104,color:'#22C55E',dash:true,marker:'arr-gn'},
-  ],
-  steps:[
-    {n:'①',t:'SG가 코너에서 <strong>PF가 스크린 위치로 오기를 기다림</strong>'},
-    {n:'②',t:'PF가 수비(D1) 앞에 스크린을 세우는 순간 <strong>빠르게 방향 전환</strong>'},
-    {n:'③',t:'스크린을 스쳐 지나며 <strong>45도 윙 또는 엘보우로 이동</strong>'},
-    {n:'④',t:'<strong>PG가 즉시 패스</strong> — 수비가 스크린에 걸려 있는 타이밍'},
-    {n:'⑤',t:'캐치 후 <strong>3점슛 / 미드레인지 / 드라이브</strong> 3가지 옵션 중 선택'},
-  ],
-  points:['스크린 타이밍','컬 vs 플레어','3옵션 준비'],
-},
-{
-  id:'s4', label:'④ 아이솔레이션', type:'atk',
-  title:'아이솔레이션 1대1 (Isolation)',
-  players:[
-    {id:'pg',x:200,y:180,fill:'#3B82F6',label:'PG',r:13},
-    {id:'sg',x:380,y:180,fill:'#FF6B00',label:'SG★',r:15},
-    {id:'sf',x:340,y:80, fill:'#3B82F6',label:'SF',r:13},
-    {id:'pf',x:340,y:280,fill:'#3B82F6',label:'PF',r:13},
-    {id:'c', x:490,y:180,fill:'#3B82F6',label:'C',r:13},
-    {id:'d1',x:410,y:180,fill:'rgba(239,68,68,.9)',label:'D',r:11},  // SG 마크
-    {id:'d2',x:340,y:90, fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d3',x:340,y:270,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d4',x:500,y:190,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d5',x:230,y:180,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-  ],
-  arrows:[
-    // 팀원들 공간 만들기
-    {x1:340,y1:80,x2:160,y2:80,color:'rgba(255,255,255,.4)',dash:true,marker:'arr-wh'},
-    {x1:340,y1:280,x2:160,y2:280,color:'rgba(255,255,255,.4)',dash:true,marker:'arr-wh'},
-    // SG 헤지테이션→드라이브
-    {x1:380,y1:180,x2:560,y2:180,color:'#FF6B00',dash:true,marker:'arr-or'},
-  ],
-  steps:[
-    {n:'①',t:'<strong>팀원 4명이 반대쪽으로 이동</strong>해 SG 공간 확보 (스페이싱)'},
-    {n:'②',t:'<strong>포켓 드리블</strong>로 수비 반응 체크'},
-    {n:'③',t:'<strong>헤지테이션(0.3초 멈춤)</strong>으로 수비 무게중심 이동 유도'},
-    {n:'④',t:'수비 무게중심이 뒤로 빠지면 → <strong>크로스오버 드라이브</strong> 골밑 돌파'},
-    {n:'⑤',t:'수비가 버티면 → <strong>스텝백 미드레인지 점퍼</strong> '},
-  ],
-  points:['스페이싱 확인','헤지 타이밍','2옵션 결정'],
-},
-{
-  id:'s5', label:'⑤ 픽앤롤 연계', type:'atk',
-  title:'픽앤롤 볼핸들러 / 스팟업 연계',
-  players:[
-    {id:'pg',x:280,y:180,fill:'#3B82F6',label:'PG',r:13},
-    {id:'sg',x:460,y:80, fill:'#FF6B00',label:'SG★',r:15},
-    {id:'sf',x:460,y:280,fill:'#3B82F6',label:'SF',r:13},
-    {id:'pf',x:350,y:180,fill:'#3B82F6',label:'PF',r:13},  // 스크리너
-    {id:'c', x:500,y:180,fill:'#3B82F6',label:'C',r:13},
-    {id:'d1',x:470,y:90, fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d2',x:470,y:270,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d3',x:300,y:180,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d4',x:360,y:190,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d5',x:510,y:190,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-  ],
-  arrows:[
-    // PF→PG 스크린
-    {x1:350,y1:180,x2:290,y2:175,color:'rgba(255,255,255,.5)',dash:false,marker:'arr-wh'},
-    // PG 드라이브
-    {x1:280,y1:180,x2:430,y2:180,color:'rgba(255,255,255,.5)',dash:true,marker:'arr-wh'},
-    // 수비 헬프 이동
-    {x1:470,y1:90,x2:400,y2:150,color:'rgba(239,68,68,.5)',dash:true,marker:'arr-rd'},
-    // SG 오픈 → PG 킥아웃 패스
-    {x1:430,y1:180,x2:456,y2:86,color:'#22C55E',dash:true,marker:'arr-gn'},
-  ],
-  steps:[
-    {n:'①',t:'SG는 <strong>코너 or 윙에서 스팟업 대기</strong> (볼 없이 오픈 위치 유지)'},
-    {n:'②',t:'PG+PF 픽앤롤이 시작되면 <strong>수비가 헬프로 이동</strong>'},
-    {n:'③',t:'PG가 드라이브 돌파 → SG 마크맨 헬프 이동 → <strong>SG 오픈!</strong>'},
-    {n:'④',t:'<strong>PG가 킥아웃 패스</strong> → 캐치앤샷 (3점 or 미드레인지)'},
-    {n:'⑤',t:'항상 <strong>발 준비(feet set)</strong>하고 대기 — 패스 오는 방향 눈으로 추적'},
-  ],
+  id:'s3', label:'③ 픽앤롤 킥아웃', type:'atk',
+  title:'픽앤롤 → 스팟업 킥아웃',
   points:['오픈 위치 유지','눈으로 볼 추적','feet set 대기'],
+  frames:[
+    {
+      desc:'SG는 코너에서 스팟업 대기. PG+PF가 픽앤롤 시작.',
+      players:[
+        {id:'pg',x:260,y:180,fill:'#3B82F6',label:'PG',r:13},
+        {id:'sg',x:520,y:60,fill:'#FF6B00',label:'SG',r:15},
+        {id:'sf',x:460,y:270,fill:'#3B82F6',label:'SF',r:13},
+        {id:'pf',x:340,y:180,fill:'#3B82F6',label:'PF',r:13},
+        {id:'c',x:490,y:190,fill:'#3B82F6',label:'C',r:13},
+        {id:'d1',x:530,y:70,fill:'#EF4444',label:'D',r:11},
+        {id:'d2',x:470,y:260,fill:'#EF4444',label:'D',r:11},
+        {id:'d3',x:280,y:180,fill:'#EF4444',label:'D',r:11},
+        {id:'d4',x:350,y:190,fill:'#EF4444',label:'D',r:11},
+        {id:'d5',x:500,y:200,fill:'#EF4444',label:'D',r:11},
+      ],
+      trails:[]
+    },
+    {
+      desc:'PF가 PG에게 스크린! PG가 드라이브 돌파.',
+      players:[
+        {id:'pg',x:390,y:180,fill:'#3B82F6',label:'PG',r:13},
+        {id:'sg',x:520,y:60,fill:'#FF6B00',label:'SG',r:15},
+        {id:'sf',x:460,y:270,fill:'#3B82F6',label:'SF',r:13},
+        {id:'pf',x:330,y:180,fill:'#3B82F6',label:'PF',r:13},
+        {id:'c',x:490,y:190,fill:'#3B82F6',label:'C',r:13},
+        {id:'d1',x:530,y:70,fill:'#EF4444',label:'D',r:11},
+        {id:'d2',x:470,y:260,fill:'#EF4444',label:'D',r:11},
+        {id:'d3',x:400,y:175,fill:'#EF4444',label:'D',r:11},
+        {id:'d4',x:315,y:185,fill:'#EF4444',label:'D',r:11},
+        {id:'d5',x:500,y:200,fill:'#EF4444',label:'D',r:11},
+      ],
+      trails:[{x1:260,y1:180,x2:390,y2:180,color:'rgba(255,255,255,.5)',type:'move'}]
+    },
+    {
+      desc:'수비가 PG 드라이브에 헬프! SG 마크맨이 이동 → SG 오픈!',
+      players:[
+        {id:'pg',x:430,y:180,fill:'#3B82F6',label:'PG',r:13},
+        {id:'sg',x:520,y:60,fill:'#FF6B00',label:'SG',r:15},
+        {id:'sf',x:460,y:270,fill:'#3B82F6',label:'SF',r:13},
+        {id:'pf',x:330,y:180,fill:'#3B82F6',label:'PF',r:13},
+        {id:'c',x:490,y:190,fill:'#3B82F6',label:'C',r:13},
+        {id:'d1',x:470,y:120,fill:'#EF4444',label:'D',r:11},
+        {id:'d2',x:470,y:260,fill:'#EF4444',label:'D',r:11},
+        {id:'d3',x:430,y:175,fill:'#EF4444',label:'D',r:11},
+        {id:'d4',x:315,y:185,fill:'#EF4444',label:'D',r:11},
+        {id:'d5',x:500,y:200,fill:'#EF4444',label:'D',r:11},
+      ],
+      trails:[{x1:530,y1:70,x2:470,y2:120,color:'rgba(239,68,68,.5)',type:'move'}]
+    },
+    {
+      desc:'PG가 킥아웃 패스! SG 캐치앤샷 3점 성공!',
+      players:[
+        {id:'pg',x:430,y:180,fill:'#3B82F6',label:'PG',r:13},
+        {id:'sg',x:520,y:60,fill:'#FF6B00',label:'SG',r:15},
+        {id:'sf',x:460,y:270,fill:'#3B82F6',label:'SF',r:13},
+        {id:'pf',x:330,y:180,fill:'#3B82F6',label:'PF',r:13},
+        {id:'c',x:490,y:190,fill:'#3B82F6',label:'C',r:13},
+        {id:'d1',x:470,y:120,fill:'#EF4444',label:'D',r:11},
+        {id:'d2',x:470,y:260,fill:'#EF4444',label:'D',r:11},
+        {id:'d3',x:430,y:175,fill:'#EF4444',label:'D',r:11},
+        {id:'d4',x:315,y:185,fill:'#EF4444',label:'D',r:11},
+        {id:'d5',x:500,y:200,fill:'#EF4444',label:'D',r:11},
+      ],
+      trails:[{x1:430,y1:180,x2:520,y2:60,color:'#22C55E',type:'pass'}]
+    },
+  ]
 },
 {
-  id:'s6', label:'⑥ 온볼 수비', type:'def',
-  title:'온볼 수비 (On-Ball Defense)',
-  players:[
-    {id:'pg',x:280,y:180,fill:'rgba(100,160,240,.9)',label:'공격',r:13},
-    {id:'sg',x:250,y:180,fill:'#FF6B00',label:'SG★',r:15},  // SG 수비
-    {id:'sf',x:440,y:80, fill:'rgba(100,160,240,.8)',label:'OF',r:12},
-    {id:'pf',x:440,y:280,fill:'rgba(100,160,240,.8)',label:'OF',r:12},
-    {id:'c', x:500,y:180,fill:'rgba(100,160,240,.8)',label:'OF',r:12},
-    {id:'d2',x:440,y:90, fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d3',x:440,y:270,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d4',x:200,y:180,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d5',x:510,y:190,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-  ],
-  arrows:[
-    // 상대 드라이브 시도
-    {x1:280,y1:180,x2:400,y2:180,color:'rgba(100,160,240,.5)',dash:true,marker:'arr-wh'},
-    // SG 사이드스텝 추격
-    {x1:250,y1:180,x2:370,y2:180,color:'#FF6B00',dash:true,marker:'arr-or'},
-  ],
-  steps:[
-    {n:'①',t:'<strong>양발 어깨너비</strong>, 무릎 굽힘 — 낮은 방어 자세 유지'},
-    {n:'②',t:'상대 허리(벨트) 주시 — 어깨나 볼에 시선 집중 금지 (페이크 당함)'},
-    {n:'③',t:'<strong>드라이브 방향 예측</strong> — 201cm 날개 길이로 패스 레인 차단'},
-    {n:'④',t:'코너 쪽으로 <strong>몰기</strong> — 사이드라인을 수비 파트너로 활용'},
-    {n:'⑤',t:'파울 위기 시 <strong>손을 위로</strong> (절대 아래로 뻗지 않기) — 블락 찬스 대기'},
-  ],
-  points:['허리 주시','날개 활용','코너 몰기'],
+  id:'s4', label:'④ 드라이브', type:'atk',
+  title:'헤지테이션 → 드라이브',
+  points:['헤지 타이밍','폭발적 첫 발','드라이브 or 스텝백'],
+  frames:[
+    {
+      desc:'SG가 볼을 받아 포켓 드리블로 수비 반응 체크.',
+      players:[
+        {id:'pg',x:200,y:170,fill:'#3B82F6',label:'PG',r:13},
+        {id:'sg',x:370,y:180,fill:'#FF6B00',label:'SG',r:15},
+        {id:'sf',x:340,y:80,fill:'#3B82F6',label:'SF',r:13},
+        {id:'pf',x:340,y:280,fill:'#3B82F6',label:'PF',r:13},
+        {id:'c',x:490,y:180,fill:'#3B82F6',label:'C',r:13},
+        {id:'d1',x:400,y:180,fill:'#EF4444',label:'D',r:11},
+        {id:'d2',x:345,y:88,fill:'#EF4444',label:'D',r:11},
+        {id:'d3',x:345,y:272,fill:'#EF4444',label:'D',r:11},
+        {id:'d4',x:500,y:188,fill:'#EF4444',label:'D',r:11},
+        {id:'d5',x:230,y:170,fill:'#EF4444',label:'D',r:11},
+      ],
+      trails:[]
+    },
+    {
+      desc:'헤지테이션 — 0.3초 멈추며 수비 무게중심 유도.',
+      players:[
+        {id:'pg',x:200,y:170,fill:'#3B82F6',label:'PG',r:13},
+        {id:'sg',x:390,y:180,fill:'#FF6B00',label:'SG',r:15},
+        {id:'sf',x:340,y:80,fill:'#3B82F6',label:'SF',r:13},
+        {id:'pf',x:340,y:280,fill:'#3B82F6',label:'PF',r:13},
+        {id:'c',x:490,y:180,fill:'#3B82F6',label:'C',r:13},
+        {id:'d1',x:418,y:180,fill:'#EF4444',label:'D',r:11},
+        {id:'d2',x:345,y:88,fill:'#EF4444',label:'D',r:11},
+        {id:'d3',x:345,y:272,fill:'#EF4444',label:'D',r:11},
+        {id:'d4',x:500,y:188,fill:'#EF4444',label:'D',r:11},
+        {id:'d5',x:230,y:170,fill:'#EF4444',label:'D',r:11},
+      ],
+      trails:[]
+    },
+    {
+      desc:'폭발! 수비 무게중심이 뒤로 빠진 순간 크로스오버 드라이브!',
+      players:[
+        {id:'pg',x:200,y:170,fill:'#3B82F6',label:'PG',r:13},
+        {id:'sg',x:540,y:180,fill:'#FF6B00',label:'SG',r:15},
+        {id:'sf',x:340,y:80,fill:'#3B82F6',label:'SF',r:13},
+        {id:'pf',x:340,y:280,fill:'#3B82F6',label:'PF',r:13},
+        {id:'c',x:490,y:180,fill:'#3B82F6',label:'C',r:13},
+        {id:'d1',x:445,y:180,fill:'#EF4444',label:'D',r:11},
+        {id:'d2',x:345,y:88,fill:'#EF4444',label:'D',r:11},
+        {id:'d3',x:345,y:272,fill:'#EF4444',label:'D',r:11},
+        {id:'d4',x:500,y:188,fill:'#EF4444',label:'D',r:11},
+        {id:'d5',x:230,y:170,fill:'#EF4444',label:'D',r:11},
+      ],
+      trails:[{x1:390,y1:180,x2:540,y2:180,color:'#FF6B00',type:'move'}]
+    },
+  ]
 },
 {
-  id:'s7', label:'⑦ 헬프 수비', type:'def',
+  id:'s5', label:'⑤ 온볼 수비', type:'def',
+  title:'온볼 수비',
+  points:['허리(벨트) 주시','코너로 몰기','손은 위로'],
+  frames:[
+    {
+      desc:'SG가 상대 볼핸들러 정면 수비 포지션. 낮은 자세, 어깨너비 스탠스.',
+      players:[
+        {id:'pg',x:280,y:180,fill:'rgba(100,180,255,.9)',label:'공격',r:13},
+        {id:'sg',x:248,y:180,fill:'#FF6B00',label:'SG',r:15},
+        {id:'d2',x:430,y:85,fill:'#EF4444',label:'D',r:11},
+        {id:'d3',x:430,y:270,fill:'#EF4444',label:'D',r:11},
+        {id:'d4',x:195,y:180,fill:'#EF4444',label:'D',r:11},
+        {id:'d5',x:500,y:190,fill:'#EF4444',label:'D',r:11},
+        {id:'of2',x:430,y:90,fill:'rgba(100,180,255,.8)',label:'OF',r:12},
+        {id:'of3',x:430,y:270,fill:'rgba(100,180,255,.8)',label:'OF',r:12},
+        {id:'of4',x:490,y:185,fill:'rgba(100,180,255,.8)',label:'OF',r:12},
+      ],
+      trails:[]
+    },
+    {
+      desc:'상대가 드라이브 시도! SG가 사이드스텝으로 앞을 막으며 코너로 유도.',
+      players:[
+        {id:'pg',x:360,y:180,fill:'rgba(100,180,255,.9)',label:'공격',r:13},
+        {id:'sg',x:330,y:180,fill:'#FF6B00',label:'SG',r:15},
+        {id:'d2',x:430,y:85,fill:'#EF4444',label:'D',r:11},
+        {id:'d3',x:430,y:270,fill:'#EF4444',label:'D',r:11},
+        {id:'d4',x:195,y:180,fill:'#EF4444',label:'D',r:11},
+        {id:'d5',x:500,y:190,fill:'#EF4444',label:'D',r:11},
+        {id:'of2',x:430,y:90,fill:'rgba(100,180,255,.8)',label:'OF',r:12},
+        {id:'of3',x:430,y:270,fill:'rgba(100,180,255,.8)',label:'OF',r:12},
+        {id:'of4',x:490,y:185,fill:'rgba(100,180,255,.8)',label:'OF',r:12},
+      ],
+      trails:[
+        {x1:280,y1:180,x2:360,y2:180,color:'rgba(100,180,255,.5)',type:'move'},
+        {x1:248,y1:180,x2:330,y2:180,color:'#FF6B00',type:'move'},
+      ]
+    },
+    {
+      desc:'상대가 코너 방향으로 몰림. SG가 사이드라인을 수비 파트너로 활용, 손은 위로!',
+      players:[
+        {id:'pg',x:490,y:120,fill:'rgba(100,180,255,.9)',label:'공격',r:13},
+        {id:'sg',x:462,y:120,fill:'#FF6B00',label:'SG',r:15},
+        {id:'d2',x:430,y:85,fill:'#EF4444',label:'D',r:11},
+        {id:'d3',x:430,y:270,fill:'#EF4444',label:'D',r:11},
+        {id:'d4',x:195,y:180,fill:'#EF4444',label:'D',r:11},
+        {id:'d5',x:500,y:190,fill:'#EF4444',label:'D',r:11},
+        {id:'of2',x:430,y:90,fill:'rgba(100,180,255,.8)',label:'OF',r:12},
+        {id:'of3',x:430,y:270,fill:'rgba(100,180,255,.8)',label:'OF',r:12},
+        {id:'of4',x:490,y:185,fill:'rgba(100,180,255,.8)',label:'OF',r:12},
+      ],
+      trails:[
+        {x1:360,y1:180,x2:490,y2:120,color:'rgba(100,180,255,.5)',type:'move'},
+        {x1:330,y1:180,x2:462,y2:120,color:'#FF6B00',type:'move'},
+      ]
+    },
+  ]
+},
+{
+  id:'s6', label:'⑥ 헬프 & 박스아웃', type:'def',
   title:'헬프 수비 & 박스아웃',
-  players:[
-    {id:'ball',x:340,y:180,fill:'rgba(100,160,240,.9)',label:'볼',r:13},
-    {id:'sg',x:440,y:100, fill:'#FF6B00',label:'SG★',r:15},
-    {id:'sf',x:440,y:260,fill:'rgba(239,68,68,.9)',label:'D',r:13},
-    {id:'pf',x:150,y:180,fill:'rgba(100,160,240,.8)',label:'OF',r:12},
-    {id:'pg',x:260,y:130,fill:'rgba(100,160,240,.8)',label:'OF',r:12},
-    {id:'c', x:490,y:180,fill:'rgba(239,68,68,.9)',label:'D',r:13},
-    {id:'d3',x:200,y:190,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-    {id:'d4',x:260,y:240,fill:'rgba(100,160,240,.8)',label:'OF',r:12},
-    {id:'d5',x:200,y:130,fill:'rgba(239,68,68,.9)',label:'D',r:11},
-  ],
-  arrows:[
-    // 볼이 왼쪽에 있을 때 SG 헬프 포지션 이동
-    {x1:440,y1:100,x2:390,y2:145,color:'#FF6B00',dash:true,marker:'arr-or'},
-    // 슛 후 SG 박스아웃
-    {x1:390,y1:145,x2:430,y2:100,color:'#FF6B00',dash:true,marker:'arr-or'},
-  ],
-  steps:[
-    {n:'①',t:'볼이 반대쪽으로 이동하면 <strong>"I" 포지션</strong> (자신의 마크맨과 볼 사이 중간)으로 이동'},
-    {n:'②',t:'슛 시도 순간 즉시 <strong>박스아웃 포지션</strong> — 마크맨을 등으로 밀어냄'},
-    {n:'③',t:'<strong>아웃사이드 리바운드</strong> 확보 — 스윙맨의 핵심 역할'},
-    {n:'④',t:'리바운드 확보 후 <strong>즉시 전환 공격</strong> — 빠른 아웃렛 패스 또는 드리블 돌파'},
-    {n:'⑤',t:'항상 <strong>두 손으로 볼 확보</strong> — 볼 뺏기면 즉시 파울 선택'},
-  ],
-  points:['I포지션','박스아웃 먼저','아웃렛 빠르게'],
+  points:['I포지션 유지','박스아웃 먼저','아웃렛 빠르게'],
+  frames:[
+    {
+      desc:'볼이 반대편에 있을 때 SG는 "I포지션" — 마크맨과 볼 사이.',
+      players:[
+        {id:'ball',x:200,y:180,fill:'rgba(100,180,255,.9)',label:'볼',r:13},
+        {id:'sg',x:430,y:130,fill:'#FF6B00',label:'SG',r:15},
+        {id:'mark',x:470,y:100,fill:'rgba(100,180,255,.8)',label:'OF',r:12},
+        {id:'of2',x:150,y:180,fill:'rgba(100,180,255,.8)',label:'OF',r:12},
+        {id:'of3',x:250,y:130,fill:'rgba(100,180,255,.8)',label:'OF',r:12},
+        {id:'d2',x:490,y:185,fill:'#EF4444',label:'D',r:11},
+        {id:'d3',x:200,y:190,fill:'#EF4444',label:'D',r:11},
+        {id:'d4',x:250,y:240,fill:'#EF4444',label:'D',r:11},
+        {id:'d5',x:250,y:130,fill:'#EF4444',label:'D',r:11},
+      ],
+      trails:[]
+    },
+    {
+      desc:'상대가 슛 시도! SG가 즉시 마크맨에게 박스아웃 포지션으로 이동.',
+      players:[
+        {id:'ball',x:200,y:180,fill:'rgba(100,180,255,.9)',label:'볼',r:13},
+        {id:'sg',x:455,y:112,fill:'#FF6B00',label:'SG',r:15},
+        {id:'mark',x:480,y:95,fill:'rgba(100,180,255,.8)',label:'OF',r:12},
+        {id:'of2',x:150,y:180,fill:'rgba(100,180,255,.8)',label:'OF',r:12},
+        {id:'of3',x:250,y:130,fill:'rgba(100,180,255,.8)',label:'OF',r:12},
+        {id:'d2',x:490,y:185,fill:'#EF4444',label:'D',r:11},
+        {id:'d3',x:200,y:190,fill:'#EF4444',label:'D',r:11},
+        {id:'d4',x:250,y:240,fill:'#EF4444',label:'D',r:11},
+        {id:'d5',x:250,y:130,fill:'#EF4444',label:'D',r:11},
+      ],
+      trails:[{x1:430,y1:130,x2:455,y2:112,color:'#FF6B00',type:'move'}]
+    },
+    {
+      desc:'리바운드 확보! 즉시 아웃렛 패스로 전환 공격 시작.',
+      players:[
+        {id:'ball',x:200,y:180,fill:'rgba(100,180,255,.9)',label:'볼',r:13},
+        {id:'sg',x:455,y:112,fill:'#FF6B00',label:'SG',r:15},
+        {id:'mark',x:480,y:95,fill:'rgba(100,180,255,.8)',label:'OF',r:12},
+        {id:'pg',x:280,y:180,fill:'#3B82F6',label:'PG',r:13},
+        {id:'of2',x:150,y:180,fill:'rgba(100,180,255,.8)',label:'OF',r:12},
+        {id:'d2',x:490,y:185,fill:'#EF4444',label:'D',r:11},
+        {id:'d3',x:200,y:190,fill:'#EF4444',label:'D',r:11},
+        {id:'d4',x:250,y:240,fill:'#EF4444',label:'D',r:11},
+        {id:'d5',x:250,y:130,fill:'#EF4444',label:'D',r:11},
+      ],
+      trails:[{x1:455,y1:112,x2:280,y2:180,color:'#22C55E',type:'pass'}]
+    },
+  ]
 },
 ];
+
+// ════════════════════════════════════════
+// CANVAS ANIMATION ENGINE
+// ════════════════════════════════════════
+const W=640,H=340;
+let currentSceneIdx=0;
+let currentFrame=0;
+let playTimer=null;
+let animT=0;
+let animating=false;
+let prevPlayers={};
+let displayPlayers={};
+
+function lerp(a,b,t){return a+(b-a)*t;}
+
+function drawCourtBG(ctx){
+  // Floor
+  ctx.fillStyle='#4A7828';
+  ctx.fillRect(0,0,W,H);
+  // Lines
+  ctx.strokeStyle='rgba(255,255,255,.55)';
+  ctx.lineWidth=2;
+  // boundary
+  ctx.strokeRect(12,12,W-24,H-24);
+  // center line
+  ctx.beginPath();ctx.moveTo(W/2,12);ctx.lineTo(W/2,H-12);ctx.stroke();
+  // center circle
+  ctx.beginPath();ctx.arc(W/2,H/2,48,0,Math.PI*2);ctx.stroke();
+  ctx.fillStyle='rgba(255,255,255,.55)';
+  ctx.beginPath();ctx.arc(W/2,H/2,5,0,Math.PI*2);ctx.fill();
+  // Left key
+  ctx.strokeRect(12,96,148,H-96*2);
+  ctx.setLineDash([8,4]);
+  ctx.beginPath();ctx.arc(160,H/2,72,Math.PI*1.5,Math.PI*.5);ctx.stroke();
+  // Right key
+  ctx.strokeRect(W-160,96,148,H-96*2);
+  ctx.beginPath();ctx.arc(W-160,H/2,72,Math.PI*.5,Math.PI*1.5);ctx.stroke();
+  // 3pt left
+  ctx.beginPath();ctx.moveTo(12,68);ctx.lineTo(100,68);ctx.arc(100,H/2,H/2-68,Math.PI*1.5,Math.PI*.5);ctx.lineTo(12,H-68);ctx.stroke();
+  // 3pt right
+  ctx.beginPath();ctx.moveTo(W-12,68);ctx.lineTo(W-100,68);ctx.arc(W-100,H/2,H/2-68,Math.PI*.5,Math.PI*1.5);ctx.lineTo(W-12,H-68);ctx.stroke();
+  ctx.setLineDash([]);
+  // Baskets
+  ctx.strokeStyle='rgba(255,165,0,.9)';ctx.lineWidth=2.5;
+  ctx.beginPath();ctx.arc(64,H/2,12,0,Math.PI*2);ctx.stroke();
+  ctx.strokeStyle='rgba(255,165,0,.8)';ctx.lineWidth=1.5;
+  ctx.fillStyle='rgba(255,165,0,.2)';
+  ctx.beginPath();ctx.rect(12,H/2-7,52,14);ctx.fill();ctx.stroke();
+  ctx.beginPath();ctx.arc(W-64,H/2,12,0,Math.PI*2);ctx.stroke();
+  ctx.beginPath();ctx.rect(W-64,H/2-7,52,14);ctx.fill();ctx.stroke();
+  // Legend
+  ctx.fillStyle='rgba(0,0,0,.28)';
+  ctx.beginPath();ctx.roundRect(12,H-22,W-24,20,2);ctx.fill();
+  const lx=22;const ly=H-8;
+  ctx.font='9px sans-serif';ctx.textBaseline='middle';
+  const items=[
+    {c:'#FF6B00',t:'SG',dx:0},{c:'#3B82F6',t:'팀메이트',dx:65},
+    {c:'#EF4444',t:'수비',dx:160},{c:'#22C55E',t:'패스',dx:220},
+  ];
+  items.forEach(it=>{
+    ctx.fillStyle=it.c;ctx.beginPath();ctx.arc(lx+it.dx,ly,5,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,.75)';ctx.fillText(it.t,lx+it.dx+9,ly);
+  });
+}
+
+function drawArrow(ctx,x1,y1,x2,y2,color,type){
+  const dx=x2-x1,dy=y2-y1,len=Math.sqrt(dx*dx+dy*dy);
+  if(len<1)return;
+  ctx.save();
+  ctx.strokeStyle=color;ctx.lineWidth=2.2;
+  if(type==='move'){ctx.setLineDash([8,4]);}
+  else if(type==='pass'){ctx.setLineDash([5,3]);ctx.lineWidth=2;}
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+  ctx.setLineDash([]);
+  // arrowhead
+  const angle=Math.atan2(dy,dx);
+  ctx.fillStyle=color;
+  ctx.beginPath();
+  ctx.translate(x2,y2);ctx.rotate(angle);
+  ctx.moveTo(0,0);ctx.lineTo(-9,-4);ctx.lineTo(-9,4);ctx.closePath();ctx.fill();
+  ctx.restore();
+}
+
+function drawPlayer(ctx,p){
+  const isSG=p.id==='sg';
+  if(isSG){
+    ctx.save();
+    ctx.strokeStyle='rgba(255,107,0,.35)';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r+6,0,Math.PI*2);ctx.stroke();
+    ctx.restore();
+  }
+  ctx.fillStyle=p.fill;
+  ctx.strokeStyle='white';ctx.lineWidth=isSG?2.5:1.8;
+  ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();ctx.stroke();
+  ctx.fillStyle='white';
+  ctx.font=`bold ${isSG?8.5:8}px sans-serif`;
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(p.label,p.x,p.y);
+}
+
+function renderFrame(t){
+  const canvas=document.getElementById('court-canvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,W,H);
+  drawCourtBG(ctx);
+  const sc=SCENES[currentSceneIdx];
+  const fr=sc.frames[currentFrame];
+  // draw trails
+  fr.trails.forEach(tr=>drawArrow(ctx,tr.x1,tr.y1,tr.x2,tr.y2,tr.color,tr.type));
+  // draw players (interpolated)
+  fr.players.forEach(p=>{
+    const prev=prevPlayers[p.id];
+    if(prev&&t<1){
+      drawPlayer(ctx,{...p,x:lerp(prev.x,p.x,t),y:lerp(prev.y,p.y,t)});
+    } else {
+      drawPlayer(ctx,p);
+    }
+  });
+}
+
+function startAnim(){
+  animating=true;animT=0;
+  const start=performance.now();
+  const dur=600;
+  function tick(now){
+    if(!animating)return;
+    animT=Math.min((now-start)/dur,1);
+    const ease=1-Math.pow(1-animT,3);
+    renderFrame(ease);
+    if(animT<1)requestAnimationFrame(tick);
+    else{animating=false;renderFrame(1);}
+  }
+  requestAnimationFrame(tick);
+}
+
+function goToFrame(idx){
+  const sc=SCENES[currentSceneIdx];
+  // save prev positions
+  prevPlayers={};
+  sc.frames[currentFrame].players.forEach(p=>{prevPlayers[p.id]={x:p.x,y:p.y};});
+  currentFrame=Math.max(0,Math.min(idx,sc.frames.length-1));
+  updateStepUI();
+  startAnim();
+}
+
+function updateStepUI(){
+  const sc=SCENES[currentSceneIdx];
+  document.getElementById('step-indicator').textContent=`${currentFrame+1} / ${sc.frames.length}`;
+  // scene box
+  const isDef=sc.type==='def';
+  document.getElementById('scene-box').innerHTML=`
+    <div class="scene-title${isDef?' def':''}">${isDef?'🛡':'⚡'} ${sc.title}</div>
+    <div class="scene-steps">
+      ${sc.frames.map((f,i)=>`
+        <div class="sstep${i===currentFrame?' current':''}${isDef?' def-step':''}">
+          <div class="sstep-num ${isDef?'def-num':'atk-num'}">${i+1}</div>
+          <div class="sstep-text">${f.desc}</div>
+        </div>`).join('')}
+    </div>
+    <div class="key-points">${sc.points.map(p=>`<div class="kp${isDef?' def':''}">${p}</div>`).join('')}</div>`;
+}
+
+function togglePlay(){
+  const btn=document.getElementById('btn-play');
+  if(playTimer){
+    clearInterval(playTimer);playTimer=null;
+    btn.textContent='▶ 플레이';btn.classList.remove('playing');
+  } else {
+    btn.textContent='⏸ 일시정지';btn.classList.add('playing');
+    playTimer=setInterval(()=>{
+      const sc=SCENES[currentSceneIdx];
+      if(currentFrame<sc.frames.length-1){goToFrame(currentFrame+1);}
+      else{clearInterval(playTimer);playTimer=null;
+        document.getElementById('btn-play').textContent='▶ 플레이';
+        document.getElementById('btn-play').classList.remove('playing');}
+    },1200);
+  }
+}
+
+function stepNext(){
+  const sc=SCENES[currentSceneIdx];
+  if(currentFrame<sc.frames.length-1)goToFrame(currentFrame+1);
+}
+function stepBack(){if(currentFrame>0)goToFrame(currentFrame-1);}
+function resetAnim(){
+  if(playTimer){clearInterval(playTimer);playTimer=null;
+    document.getElementById('btn-play').textContent='▶ 플레이';
+    document.getElementById('btn-play').classList.remove('playing');}
+  prevPlayers={};currentFrame=0;updateStepUI();renderFrame(1);
+}
+
+function loadScene(idx){
+  if(playTimer){clearInterval(playTimer);playTimer=null;
+    document.getElementById('btn-play').textContent='▶ 플레이';
+    document.getElementById('btn-play').classList.remove('playing');}
+  currentSceneIdx=idx;prevPlayers={};currentFrame=0;
+  document.querySelectorAll('.snav').forEach((b,i)=>{
+    b.classList.remove('active');if(i===idx)b.classList.add('active');});
+  updateStepUI();renderFrame(1);
+}
 
 // ════════════════════════════════════════
 // TIPS DATA
@@ -662,15 +984,16 @@ const TIPS=[
 // ════════════════════════════════════════
 let checked=new Set(JSON.parse(localStorage.getItem('hj_checked')||'[]'));
 let records=JSON.parse(localStorage.getItem('hj_records')||'[]');
-let currentScene=0;
 
 // ════════════════════════════════════════
 // INIT
 // ════════════════════════════════════════
 function init(){
   renderDrills();
+  renderCatContent();
   renderSceneNav();
-  renderScene(0);
+  updateStepUI();
+  renderFrame(1);
   renderTips();
   updateProgress();
   renderRecord();
@@ -722,69 +1045,33 @@ function updateProgress(){
 }
 
 // ════════════════════════════════════════
-// SCENE
+// CATEGORY CONTENT
+// ════════════════════════════════════════
+let currentCat='role';
+function switchCat(cat,el){
+  currentCat=cat;
+  document.querySelectorAll('.ctab').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderCatContent();
+}
+function renderCatContent(){
+  const data=CAT_DATA[currentCat];
+  document.getElementById('cat-content').innerHTML=`
+    <div class="cat-cards">${data.cards.map(c=>`
+      <div class="cat-card">
+        <div class="cat-card-title">${c.title}</div>
+        <ul class="cat-card-body">${c.body.map(b=>`<li>${b}</li>`).join('')}</ul>
+      </div>`).join('')}</div>`;
+}
+
+// ════════════════════════════════════════
+// SCENE NAV
 // ════════════════════════════════════════
 function renderSceneNav(){
   document.getElementById('scene-nav').innerHTML=SCENES.map((s,i)=>`
-    <button class="snav${s.type==='def'?' def-btn':''}" onclick="renderScene(${i})" id="snav-${i}">${s.label}</button>
+    <button class="snav${s.type==='def'?' def-btn':''}" onclick="loadScene(${i})" id="snav-${i}">${s.label}</button>
   `).join('');
   document.getElementById('snav-0').classList.add('active');
-}
-
-function renderScene(idx){
-  currentScene=idx;
-  // update nav
-  document.querySelectorAll('.snav').forEach((b,i)=>{
-    b.classList.remove('active');
-    if(i===idx)b.classList.add('active');
-  });
-  const s=SCENES[idx];
-  drawCourt(s);
-  drawSceneBox(s);
-}
-
-function drawCourt(s){
-  const layer=document.getElementById('dynamic-layer');
-  let html='';
-
-  // arrows
-  s.arrows.forEach(a=>{
-    const dash=a.dash?'stroke-dasharray="8 4" class="move-arrow"':'';
-    html+=`<line x1="${a.x1}" y1="${a.y1}" x2="${a.x2}" y2="${a.y2}"
-      stroke="${a.color}" stroke-width="2.5" ${dash} marker-end="url(#${a.marker})"/>`;
-  });
-
-  // players
-  s.players.forEach(p=>{
-    const isSG=p.id==='sg';
-    const strokeW=isSG?2.5:1.8;
-    html+=`<circle cx="${p.x}" cy="${p.y}" r="${p.r}" fill="${p.fill}" stroke="white" stroke-width="${strokeW}"/>`;
-    html+=`<text x="${p.x}" y="${p.y+4}" text-anchor="middle" fill="white" font-size="${isSG?8.5:8}" font-weight="bold" font-family="sans-serif">${p.label}</text>`;
-    if(isSG){
-      // glow ring
-      html+=`<circle cx="${p.x}" cy="${p.y}" r="${p.r+5}" fill="none" stroke="rgba(255,107,0,.4)" stroke-width="1.5"/>`;
-    }
-  });
-
-  layer.innerHTML=html;
-}
-
-function drawSceneBox(s){
-  const isDef=s.type==='def';
-  document.getElementById('scene-box').innerHTML=`
-    <div class="scene-box">
-      <div class="scene-title${isDef?' def':''}">${isDef?'🛡':'⚡'} ${s.title}</div>
-      <div class="scene-steps">
-        ${s.steps.map(st=>`
-          <div class="sstep">
-            <div class="sstep-num ${isDef?'def-num':'atk-num'}">${st.n}</div>
-            <div class="sstep-text">${st.t}</div>
-          </div>`).join('')}
-      </div>
-      <div class="key-points">
-        ${s.points.map(p=>`<div class="kp${isDef?' def':''}">${p}</div>`).join('')}
-      </div>
-    </div>`;
 }
 
 // ════════════════════════════════════════
